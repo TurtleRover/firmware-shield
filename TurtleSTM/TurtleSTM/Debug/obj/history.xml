@@ -22,8 +22,8 @@
       <target file="stm32f0xx_hal.o" lastModified="15a8e950186">
          <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal.c" lastModified="15a6bbaf82e"/>
       </target>
-      <target file="sw_fifo.o" lastModified="15a8ec6d51f">
-         <source file="..\..\..\Src\sw_fifo.c" lastModified="15a8ec6ccae"/>
+      <target file="sw_fifo.o" lastModified="15a8f2e23da">
+         <source file="..\..\..\Src\sw_fifo.c" lastModified="15a8f2b812c"/>
       </target>
       <target file="i2c.o" lastModified="15a8e94ffec">
          <source file="..\..\..\Src\i2c.c" lastModified="15a8a48387a"/>
@@ -37,8 +37,8 @@
       <target file="stm32f0xx_hal_spi_ex.o" lastModified="15a8e9501f6">
          <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_spi_ex.c" lastModified="15a6bbaf90f"/>
       </target>
-      <target file="rpi_communication.o" lastModified="15a8ea8913c">
-         <source file="..\..\..\Src\rpi_communication.c" lastModified="15a8ea889f5"/>
+      <target file="rpi_communication.o" lastModified="15a8f8b07aa">
+         <source file="..\..\..\Src\rpi_communication.c" lastModified="15a8f8afeed"/>
       </target>
       <target file="stm32f0xx_hal_gpio.o" lastModified="15a8e951136">
          <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_gpio.c" lastModified="15a6bbaf88d"/>
@@ -85,11 +85,11 @@
       <target file="system_stm32f0xx.o" lastModified="15a8e950d57">
          <source file="..\..\..\Src\system_stm32f0xx.c" lastModified="15a6bba348c"/>
       </target>
+      <target file="usart.o" lastModified="15a8f157efa">
+         <source file="..\..\..\Src\usart.c" lastModified="15a8f110828"/>
+      </target>
       <target file="dma.o" lastModified="15a8e9511aa">
          <source file="..\..\..\Src\dma.c" lastModified="15a8a4836f9"/>
-      </target>
-      <target file="usart.o" lastModified="15a8e951227">
-         <source file="..\..\..\Src\usart.c" lastModified="15a8a483d7e"/>
       </target>
       <target file="stm32f0xx_hal_rcc.o" lastModified="15a8e950088">
          <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_rcc.c" lastModified="15a6bbaf8db"/>

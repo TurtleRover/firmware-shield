@@ -57,10 +57,6 @@
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_flash_ex.c" lastModified="15a6bbaf887">
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal.h"/>
       </source>
-      <source file="..\..\..\Src\usart.c" lastModified="15a8a483d7e">
-         <include file="..\..\..\Inc\usart.h"/>
-         <include file="..\..\..\Inc\gpio.h"/>
-      </source>
       <source file="..\..\..\Drivers\CMSIS\Include\cmsis_gcc.h" lastModified="15a6bbaf437">
       </source>
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_adc.c" lastModified="15a6bbaf837">
@@ -306,7 +302,7 @@
          <include file="..\..\..\Inc\stm32f0xx_it.h"/>
          <include file="..\..\..\Inc\sw_fifo.h"/>
       </source>
-      <source file="..\..\..\Src\usart.c" lastModified="15a8a483d7e">
+      <source file="..\..\..\Src\usart.c" lastModified="15a8f110828">
          <include file="..\..\..\Inc\usart.h"/>
          <include file="..\..\..\Inc\gpio.h"/>
       </source>
@@ -369,8 +365,6 @@
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_pwr_ex.h" lastModified="15a6bbaf6b8">
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_def.h"/>
       </source>
-      <source file="..\..\..\Src\rpi_communication.c" lastModified="15a8ea88ddd">
-      </source>
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_adc_ex.h" lastModified="15a6bbaf5c8">
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_def.h"/>
       </source>
@@ -398,6 +392,10 @@
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_adc.h" lastModified="15a6bbaf5be">
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_def.h"/>
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal_adc_ex.h"/>
+      </source>
+      <source file="..\..\..\Src\sw_fifo.c" lastModified="15a8f2b8514">
+         <include file="..\..\..\Inc\sw_fifo.h"/>
+         <include file="..\..\..\Inc\usart.h"/>
       </source>
       <source file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Src\stm32f0xx_hal_pwr_ex.c" lastModified="15a6bbaf8d5">
          <include file="..\..\..\Drivers\STM32F0xx_HAL_Driver\Inc\stm32f0xx_hal.h"/>

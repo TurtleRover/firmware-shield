@@ -1,9 +1,5 @@
 /* https://eewiki.net/display/microcontroller/Software+FIFO+Buffer+for+UART+Communication */
 
-////////////////////////////////////////////////////////////////////////////////////////
-/* enter necessary header files for proper interrupt vector and UART/USART visibility */
-////////////////////////////////////////////////////////////////////////////////////////
-
 #include <stdint.h>
 #include "sw_fifo.h"
 #include "usart.h"
@@ -19,7 +15,6 @@ sw_fifo_typedef rx_fifo = { {0}, 0, 0, 0 }; // declare a receive software buffer
 sw_fifo_typedef tx_fifo = { {0}, 0, 0, 0 }; // declare a transmit software buffer
  
 void FIFO_receive_handler() {
-
   /* RECEIVE INTERRUPT */
 
   /***************************************************************************************************************/
@@ -30,30 +25,26 @@ void FIFO_receive_handler() {
   //  - automatically handles "uart_rx_buffer_full_flag"
   //  - sets overflow flag upon software buffer overflow (doesn't overwrite existing data)
 
-  /* Explicitly clear the source of interrupt if necessary */
-
   if(rx_fifo.num_bytes == FIFO_BUFFER_SIZE) {      // if the sw buffer is full
     uart_rx_fifo_ovf_flag = 1;                     // set the overflow flag
-  }else if(rx_fifo.num_bytes < FIFO_BUFFER_SIZE) { // if there's room in the sw buffer
-
-    ///////////////////////////////////////////////////
-    /* read error/status reg here if desired         */
-    /* handle any hardware RX errors here if desired */
-    ///////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /*rx_fifo.data_buf[rx_fifo.i_last] = enter pointer to UART rx hardware buffer here */ // store the received data as the newest data element in the sw buffer
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  }
+  else if(rx_fifo.num_bytes < FIFO_BUFFER_SIZE) { // if there's room in the sw buffer
+    rx_fifo.data_buf[rx_fifo.i_last] = USART1->RDR; // store the received data as the newest data element in the sw buffer
     rx_fifo.i_last++;                              // increment the index of the most recently added element
     rx_fifo.num_bytes++;                           // increment the bytes counter
   }
+
   if(rx_fifo.num_bytes == FIFO_BUFFER_SIZE) {      // if sw buffer just filled up
     uart_rx_fifo_full_flag = 1;                    // set the RX FIFO full flag
   }
+
+  /* if end of message call function which reads it */
+  if (rx_fifo.data_buf[rx_fifo.i_last - 1] == '\n')
+
   if(rx_fifo.i_last == FIFO_BUFFER_SIZE) {         // if the index has reached the end of the buffer,
     rx_fifo.i_last = 0;                            // roll over the index counter
   }
+
   uart_rx_fifo_not_empty_flag = 1;                 // set received-data flag
 }
 
@@ -68,16 +59,12 @@ void FIFO_transmit_handler() {
   //  - if the sw buffer is emptied, it disables the "hw buffer empty" interrupt
   //  - automatically handles "uart_tx_buffer_full_flag"
 
-  /* Explicitly clear the source of interrupt if necessary */
-
   if(tx_fifo.num_bytes == FIFO_BUFFER_SIZE) { // if the sw buffer is full
     uart_tx_fifo_full_flag = 0;               // clear the buffer full flag because we are about to make room
   }
   if(tx_fifo.num_bytes > 0) {                 // if data exists in the sw buffer
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /* enter pointer to UART tx hardware buffer here = tx_fifo.data_buf[tx_fifo.i_first]; // place oldest data element in the TX hardware buffer */
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    USART1->TDR = tx_fifo.data_buf[tx_fifo.i_first]; // place oldest data element in the TX hardware buffer */
 
     tx_fifo.i_first++;                        // increment the index of the oldest element
     tx_fifo.num_bytes--;                      // decrement the bytes counter
@@ -86,14 +73,11 @@ void FIFO_transmit_handler() {
     tx_fifo.i_first = 0;                      // roll over the index counter
   }
   if(tx_fifo.num_bytes == 0) {                // if no more data exists
-
     uart_tx_fifo_not_empty_flag = 0;          // clear flag
 
-    //////////////////////////////////////////////////////////////////////////
-    /* disable UART "TX hw buffer empty" interrupt here                     */
-    /* if using shared RX/TX hardware buffer, enable RX data interrupt here */
-    //////////////////////////////////////////////////////////////////////////
-
+    /* no more data to be send
+     * disable transmit interrupt */
+    CLEAR_BIT(USART1->CR1, USART_CR1_TXEIE);
   }
 }
  
@@ -105,11 +89,7 @@ void FIFO_transmit_handler() {
 //  - sets the overflow flag upon software buffer overflow (doesn't overwrite existing data)
 //  - if this is the first data byte in the buffer, it enables the "hw buffer empty" interrupt
 void FIFO_send_byte(uint8_t byte) {
-   
-  ///////////////////////////////////////////////////////////
-  /* disable interrupts while manipulating buffer pointers */
-  ///////////////////////////////////////////////////////////
- 
+
   if(tx_fifo.num_bytes == FIFO_BUFFER_SIZE) {      // no room in the sw buffer
     uart_tx_fifo_ovf_flag = 1;                     // set the overflow flag
   }else if(tx_fifo.num_bytes < FIFO_BUFFER_SIZE) { // if there's room in the sw buffer
@@ -123,20 +103,14 @@ void FIFO_send_byte(uint8_t byte) {
   if(tx_fifo.i_last == FIFO_BUFFER_SIZE) {         // if the "new data" index has reached the end of the buffer,
     tx_fifo.i_last = 0;                            // roll over the index counter
   }
- 
-  ///////////////////////
-  /* enable interrupts */
-  ///////////////////////
- 
+
   if(tx_fifo.num_bytes > 0) {                      // if there is data in the buffer
  
     uart_tx_fifo_not_empty_flag = 1;               // set flag
      
-    ///////////////////////////////////////////////////////////////////////////
-    /* if using shared RX/TX hardware buffer, disable RX data interrupt here */
-    /* enable UART "TX hw buffer empty" interrupt here                       */
-    ///////////////////////////////////////////////////////////////////////////
-     
+    /* to send data
+     * enable buffer empty interrupt */
+    SET_BIT(USART1->CR1, USART_CR1_TXEIE);
   }
 }
 
@@ -147,11 +121,6 @@ void FIFO_send_byte(uint8_t byte) {
 //  - automatically handles "uart_rx_buffer_full_flag"
 //  - if no data exists, it clears the uart_rx_flag
 uint8_t FIFO_get_byte(void) {
-
-  ///////////////////////////////////////////////////////////
-  /* disable interrupts while manipulating buffer pointers */
-  ///////////////////////////////////////////////////////////
-
   uint8_t byte = 0;
   if(rx_fifo.num_bytes == FIFO_BUFFER_SIZE) { // if the sw buffer is full
     uart_rx_fifo_full_flag = 0;               // clear the buffer full flag because we are about to make room
@@ -166,10 +135,6 @@ uint8_t FIFO_get_byte(void) {
   if(rx_fifo.i_first == FIFO_BUFFER_SIZE) {   // if the index has reached the end of the buffer,
     rx_fifo.i_first = 0;                      // roll over the index counter
   }
-
-  ///////////////////////
-  /* enable interrupts */
-  ///////////////////////
 
   return byte;                                // return the data byte
 }
