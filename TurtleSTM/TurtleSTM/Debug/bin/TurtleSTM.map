@@ -12,15 +12,27 @@ c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none
 Allocating common symbols
 Common symbol       size              file
 
+uart_tx_fifo_not_empty_flag
+                    0x1               ..\obj\rpi_communication.o
 hi2c2               0x4c              ..\obj\i2c.o
 uwTick              0x4               ..\obj\stm32f0xx_hal.o
 pFlash              0x20              ..\obj\stm32f0xx_hal_flash.o
 htim3               0x40              ..\obj\tim.o
 huart1              0x70              ..\obj\usart.o
+uart_tx_fifo_full_flag
+                    0x1               ..\obj\rpi_communication.o
+uart_rx_fifo_full_flag
+                    0x1               ..\obj\rpi_communication.o
 htim1               0x40              ..\obj\tim.o
+uart_tx_fifo_ovf_flag
+                    0x1               ..\obj\rpi_communication.o
 hspi1               0x64              ..\obj\spi.o
+uart_rx_fifo_not_empty_flag
+                    0x1               ..\obj\rpi_communication.o
 hdma_adc            0x44              ..\obj\adc.o
 hadc                0x4c              ..\obj\adc.o
+uart_rx_fifo_ovf_flag
+                    0x1               ..\obj\rpi_communication.o
 
 Discarded input sections
 
@@ -387,6 +399,9 @@ Discarded input sections
                 0x00000000       0x14 ..\obj\stm32f0xx_hal_dma.o
  .text.DMA_SetConfig
                 0x00000000       0x58 ..\obj\stm32f0xx_hal_dma.o
+ .text          0x00000000        0x0 ..\obj\rpi_communication.o
+ .data          0x00000000        0x0 ..\obj\rpi_communication.o
+ .bss           0x00000000        0x0 ..\obj\rpi_communication.o
  .text          0x00000000        0x0 ..\obj\stm32f0xx_hal_cortex.o
  .data          0x00000000        0x0 ..\obj\stm32f0xx_hal_cortex.o
  .bss           0x00000000        0x0 ..\obj\stm32f0xx_hal_cortex.o
@@ -414,6 +429,12 @@ Discarded input sections
                 0x00000000       0x22 ..\obj\stm32f0xx_hal_cortex.o
  .text.HAL_NVIC_ClearPendingIRQ
                 0x00000000       0x20 ..\obj\stm32f0xx_hal_cortex.o
+ .text          0x00000000        0x0 ..\obj\sw_fifo.o
+ .data          0x00000000        0x0 ..\obj\sw_fifo.o
+ .text.FIFO_send_byte
+                0x00000000       0x8c ..\obj\sw_fifo.o
+ .text.FIFO_get_byte
+                0x00000000       0x78 ..\obj\sw_fifo.o
  .text          0x00000000        0x0 ..\obj\stm32f0xx_hal_spi.o
  .data          0x00000000        0x0 ..\obj\stm32f0xx_hal_spi.o
  .bss           0x00000000        0x0 ..\obj\stm32f0xx_hal_spi.o
@@ -1040,7 +1061,7 @@ Linker script and memory map
 
                 0x20002000                _eram = 0x20002000
 
-.text           0x08000000     0x4b1c
+.text           0x08000000     0x4c24
  *(.isr_vector)
  .isr_vector    0x08000000       0xc4 ..\obj\startup_stm32f0xx.o
                 0x08000000                g_pfnVectors
@@ -1222,175 +1243,181 @@ Linker script and memory map
  .text.HAL_SYSTICK_Callback
                 0x08002682        0xa ..\obj\stm32f0xx_hal_cortex.o
                 0x08002682                HAL_SYSTICK_Callback
+ .text.FIFO_receive_handler
+                0x0800268c       0x6c ..\obj\sw_fifo.o
+                0x0800268c                FIFO_receive_handler
+ .text.FIFO_transmit_handler
+                0x080026f8       0x60 ..\obj\sw_fifo.o
+                0x080026f8                FIFO_transmit_handler
  .text.HAL_SPI_Init
-                0x0800268c      0x130 ..\obj\stm32f0xx_hal_spi.o
-                0x0800268c                HAL_SPI_Init
+                0x08002758      0x130 ..\obj\stm32f0xx_hal_spi.o
+                0x08002758                HAL_SPI_Init
  .text.HAL_SPI_IRQHandler
-                0x080027bc      0x1a0 ..\obj\stm32f0xx_hal_spi.o
-                0x080027bc                HAL_SPI_IRQHandler
+                0x08002888      0x1a0 ..\obj\stm32f0xx_hal_spi.o
+                0x08002888                HAL_SPI_IRQHandler
  .text.HAL_SPI_ErrorCallback
-                0x0800295c       0x10 ..\obj\stm32f0xx_hal_spi.o
-                0x0800295c                HAL_SPI_ErrorCallback
+                0x08002a28       0x10 ..\obj\stm32f0xx_hal_spi.o
+                0x08002a28                HAL_SPI_ErrorCallback
  .text.SPI_DMAAbortOnError
-                0x0800296c       0x2c ..\obj\stm32f0xx_hal_spi.o
+                0x08002a38       0x2c ..\obj\stm32f0xx_hal_spi.o
  .text.HAL_I2C_Init
-                0x08002998      0x12c ..\obj\stm32f0xx_hal_i2c.o
-                0x08002998                HAL_I2C_Init
+                0x08002a64      0x12c ..\obj\stm32f0xx_hal_i2c.o
+                0x08002a64                HAL_I2C_Init
  .text.HAL_I2C_EV_IRQHandler
-                0x08002ac4       0x34 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002ac4                HAL_I2C_EV_IRQHandler
+                0x08002b90       0x34 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002b90                HAL_I2C_EV_IRQHandler
  .text.HAL_I2C_ER_IRQHandler
-                0x08002af8       0xb0 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002af8                HAL_I2C_ER_IRQHandler
+                0x08002bc4       0xb0 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002bc4                HAL_I2C_ER_IRQHandler
  .text.HAL_I2C_SlaveTxCpltCallback
-                0x08002ba8       0x10 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002ba8                HAL_I2C_SlaveTxCpltCallback
+                0x08002c74       0x10 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002c74                HAL_I2C_SlaveTxCpltCallback
  .text.HAL_I2C_SlaveRxCpltCallback
-                0x08002bb8       0x10 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002bb8                HAL_I2C_SlaveRxCpltCallback
+                0x08002c84       0x10 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002c84                HAL_I2C_SlaveRxCpltCallback
  .text.HAL_I2C_AddrCallback
-                0x08002bc8       0x20 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002bc8                HAL_I2C_AddrCallback
+                0x08002c94       0x20 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002c94                HAL_I2C_AddrCallback
  .text.HAL_I2C_ListenCpltCallback
-                0x08002be8       0x10 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002be8                HAL_I2C_ListenCpltCallback
+                0x08002cb4       0x10 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002cb4                HAL_I2C_ListenCpltCallback
  .text.HAL_I2C_ErrorCallback
-                0x08002bf8       0x10 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002bf8                HAL_I2C_ErrorCallback
+                0x08002cc4       0x10 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002cc4                HAL_I2C_ErrorCallback
  .text.HAL_I2C_AbortCpltCallback
-                0x08002c08       0x10 ..\obj\stm32f0xx_hal_i2c.o
-                0x08002c08                HAL_I2C_AbortCpltCallback
+                0x08002cd4       0x10 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002cd4                HAL_I2C_AbortCpltCallback
  .text.I2C_Slave_ISR_IT
-                0x08002c18      0x1e0 ..\obj\stm32f0xx_hal_i2c.o
+                0x08002ce4      0x1e0 ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_ITAddrCplt
-                0x08002df8      0x16c ..\obj\stm32f0xx_hal_i2c.o
+                0x08002ec4      0x16c ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_ITSlaveSequentialCplt
-                0x08002f64       0x82 ..\obj\stm32f0xx_hal_i2c.o
- *fill*         0x08002fe6        0x2 
+                0x08003030       0x82 ..\obj\stm32f0xx_hal_i2c.o
+ *fill*         0x080030b2        0x2 
  .text.I2C_ITSlaveCplt
-                0x08002fe8      0x1b8 ..\obj\stm32f0xx_hal_i2c.o
+                0x080030b4      0x1b8 ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_ITListenCplt
-                0x080031a0       0xa4 ..\obj\stm32f0xx_hal_i2c.o
+                0x0800326c       0xa4 ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_ITError
-                0x08003244      0x190 ..\obj\stm32f0xx_hal_i2c.o
+                0x08003310      0x190 ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_Flush_TXDR
-                0x080033d4       0x44 ..\obj\stm32f0xx_hal_i2c.o
+                0x080034a0       0x44 ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_DMAAbort
-                0x08003418       0x5e ..\obj\stm32f0xx_hal_i2c.o
+                0x080034e4       0x5e ..\obj\stm32f0xx_hal_i2c.o
  .text.I2C_Disable_IRQ
-                0x08003476       0xd4 ..\obj\stm32f0xx_hal_i2c.o
- *fill*         0x0800354a        0x2 
+                0x08003542       0xd4 ..\obj\stm32f0xx_hal_i2c.o
+ *fill*         0x08003616        0x2 
  .text.HAL_MspInit
-                0x0800354c       0x54 ..\obj\stm32f0xx_hal_msp.o
-                0x0800354c                HAL_MspInit
+                0x08003618       0x54 ..\obj\stm32f0xx_hal_msp.o
+                0x08003618                HAL_MspInit
  .text.MX_ADC_Init
-                0x080035a0      0x110 ..\obj\adc.o
-                0x080035a0                MX_ADC_Init
+                0x0800366c      0x110 ..\obj\adc.o
+                0x0800366c                MX_ADC_Init
  .text.HAL_ADC_MspInit
-                0x080036b0       0xc0 ..\obj\adc.o
-                0x080036b0                HAL_ADC_MspInit
+                0x0800377c       0xc0 ..\obj\adc.o
+                0x0800377c                HAL_ADC_MspInit
  .text.HAL_I2CEx_ConfigAnalogFilter
-                0x08003770       0x98 ..\obj\stm32f0xx_hal_i2c_ex.o
-                0x08003770                HAL_I2CEx_ConfigAnalogFilter
+                0x0800383c       0x98 ..\obj\stm32f0xx_hal_i2c_ex.o
+                0x0800383c                HAL_I2CEx_ConfigAnalogFilter
  .text.SystemInit
-                0x08003808       0x88 ..\obj\system_stm32f0xx.o
-                0x08003808                SystemInit
+                0x080038d4       0x88 ..\obj\system_stm32f0xx.o
+                0x080038d4                SystemInit
  .text.NMI_Handler
-                0x08003890        0xa ..\obj\stm32f0xx_it.o
-                0x08003890                NMI_Handler
+                0x0800395c        0xa ..\obj\stm32f0xx_it.o
+                0x0800395c                NMI_Handler
  .text.HardFault_Handler
-                0x0800389a        0x6 ..\obj\stm32f0xx_it.o
-                0x0800389a                HardFault_Handler
+                0x08003966        0x6 ..\obj\stm32f0xx_it.o
+                0x08003966                HardFault_Handler
  .text.SVC_Handler
-                0x080038a0        0xa ..\obj\stm32f0xx_it.o
-                0x080038a0                SVC_Handler
+                0x0800396c        0xa ..\obj\stm32f0xx_it.o
+                0x0800396c                SVC_Handler
  .text.PendSV_Handler
-                0x080038aa        0xa ..\obj\stm32f0xx_it.o
-                0x080038aa                PendSV_Handler
+                0x08003976        0xa ..\obj\stm32f0xx_it.o
+                0x08003976                PendSV_Handler
  .text.SysTick_Handler
-                0x080038b4       0x12 ..\obj\stm32f0xx_it.o
-                0x080038b4                SysTick_Handler
- *fill*         0x080038c6        0x2 
+                0x08003980       0x12 ..\obj\stm32f0xx_it.o
+                0x08003980                SysTick_Handler
+ *fill*         0x08003992        0x2 
  .text.DMA1_Channel1_IRQHandler
-                0x080038c8       0x18 ..\obj\stm32f0xx_it.o
-                0x080038c8                DMA1_Channel1_IRQHandler
+                0x08003994       0x18 ..\obj\stm32f0xx_it.o
+                0x08003994                DMA1_Channel1_IRQHandler
  .text.I2C2_IRQHandler
-                0x080038e0       0x30 ..\obj\stm32f0xx_it.o
-                0x080038e0                I2C2_IRQHandler
+                0x080039ac       0x30 ..\obj\stm32f0xx_it.o
+                0x080039ac                I2C2_IRQHandler
  .text.SPI1_IRQHandler
-                0x08003910       0x18 ..\obj\stm32f0xx_it.o
-                0x08003910                SPI1_IRQHandler
+                0x080039dc       0x18 ..\obj\stm32f0xx_it.o
+                0x080039dc                SPI1_IRQHandler
  .text.USART1_IRQHandler
-                0x08003928       0x18 ..\obj\stm32f0xx_it.o
-                0x08003928                USART1_IRQHandler
+                0x080039f4       0x54 ..\obj\stm32f0xx_it.o
+                0x080039f4                USART1_IRQHandler
  .text.HAL_TIMEx_MasterConfigSynchronization
-                0x08003940       0x86 ..\obj\stm32f0xx_hal_tim_ex.o
-                0x08003940                HAL_TIMEx_MasterConfigSynchronization
- *fill*         0x080039c6        0x2 
+                0x08003a48       0x86 ..\obj\stm32f0xx_hal_tim_ex.o
+                0x08003a48                HAL_TIMEx_MasterConfigSynchronization
+ *fill*         0x08003ace        0x2 
  .text.HAL_TIMEx_ConfigBreakDeadTime
-                0x080039c8       0xdc ..\obj\stm32f0xx_hal_tim_ex.o
-                0x080039c8                HAL_TIMEx_ConfigBreakDeadTime
+                0x08003ad0       0xdc ..\obj\stm32f0xx_hal_tim_ex.o
+                0x08003ad0                HAL_TIMEx_ConfigBreakDeadTime
  .text.HAL_TIM_Base_Init
-                0x08003aa4       0x58 ..\obj\stm32f0xx_hal_tim.o
-                0x08003aa4                HAL_TIM_Base_Init
+                0x08003bac       0x58 ..\obj\stm32f0xx_hal_tim.o
+                0x08003bac                HAL_TIM_Base_Init
  .text.HAL_TIM_PWM_Init
-                0x08003afc       0x58 ..\obj\stm32f0xx_hal_tim.o
-                0x08003afc                HAL_TIM_PWM_Init
+                0x08003c04       0x58 ..\obj\stm32f0xx_hal_tim.o
+                0x08003c04                HAL_TIM_PWM_Init
  .text.HAL_TIM_PWM_MspInit
-                0x08003b54       0x10 ..\obj\stm32f0xx_hal_tim.o
-                0x08003b54                HAL_TIM_PWM_MspInit
+                0x08003c5c       0x10 ..\obj\stm32f0xx_hal_tim.o
+                0x08003c5c                HAL_TIM_PWM_MspInit
  .text.HAL_TIM_PWM_ConfigChannel
-                0x08003b64      0x170 ..\obj\stm32f0xx_hal_tim.o
-                0x08003b64                HAL_TIM_PWM_ConfigChannel
+                0x08003c6c      0x170 ..\obj\stm32f0xx_hal_tim.o
+                0x08003c6c                HAL_TIM_PWM_ConfigChannel
  .text.HAL_TIM_ConfigClockSource
-                0x08003cd4      0x1c0 ..\obj\stm32f0xx_hal_tim.o
-                0x08003cd4                HAL_TIM_ConfigClockSource
+                0x08003ddc      0x1c0 ..\obj\stm32f0xx_hal_tim.o
+                0x08003ddc                HAL_TIM_ConfigClockSource
  .text.TIM_Base_SetConfig
-                0x08003e94       0xf0 ..\obj\stm32f0xx_hal_tim.o
-                0x08003e94                TIM_Base_SetConfig
+                0x08003f9c       0xf0 ..\obj\stm32f0xx_hal_tim.o
+                0x08003f9c                TIM_Base_SetConfig
  .text.TIM_OC1_SetConfig
-                0x08003f84      0x11c ..\obj\stm32f0xx_hal_tim.o
+                0x0800408c      0x11c ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_OC2_SetConfig
-                0x080040a0      0x114 ..\obj\stm32f0xx_hal_tim.o
-                0x080040a0                TIM_OC2_SetConfig
+                0x080041a8      0x114 ..\obj\stm32f0xx_hal_tim.o
+                0x080041a8                TIM_OC2_SetConfig
  .text.TIM_OC3_SetConfig
-                0x080041b4      0x118 ..\obj\stm32f0xx_hal_tim.o
+                0x080042bc      0x118 ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_OC4_SetConfig
-                0x080042cc       0xe0 ..\obj\stm32f0xx_hal_tim.o
+                0x080043d4       0xe0 ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_TI1_ConfigInputStage
-                0x080043ac       0x64 ..\obj\stm32f0xx_hal_tim.o
+                0x080044b4       0x64 ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_TI2_ConfigInputStage
-                0x08004410       0x6c ..\obj\stm32f0xx_hal_tim.o
+                0x08004518       0x6c ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_ITRx_SetConfig
-                0x0800447c       0x40 ..\obj\stm32f0xx_hal_tim.o
+                0x08004584       0x40 ..\obj\stm32f0xx_hal_tim.o
  .text.TIM_ETR_SetConfig
-                0x080044bc       0x44 ..\obj\stm32f0xx_hal_tim.o
-                0x080044bc                TIM_ETR_SetConfig
+                0x080045c4       0x44 ..\obj\stm32f0xx_hal_tim.o
+                0x080045c4                TIM_ETR_SetConfig
  .text.HAL_GPIO_Init
-                0x08004500      0x2e8 ..\obj\stm32f0xx_hal_gpio.o
-                0x08004500                HAL_GPIO_Init
+                0x08004608      0x2e8 ..\obj\stm32f0xx_hal_gpio.o
+                0x08004608                HAL_GPIO_Init
  .text.HAL_GPIO_WritePin
-                0x080047e8       0x3a ..\obj\stm32f0xx_hal_gpio.o
-                0x080047e8                HAL_GPIO_WritePin
- *fill*         0x08004822        0x2 
+                0x080048f0       0x3a ..\obj\stm32f0xx_hal_gpio.o
+                0x080048f0                HAL_GPIO_WritePin
+ *fill*         0x0800492a        0x2 
  .text.MX_DMA_Init
-                0x08004824       0x3c ..\obj\dma.o
-                0x08004824                MX_DMA_Init
+                0x0800492c       0x3c ..\obj\dma.o
+                0x0800492c                MX_DMA_Init
  .text.MX_USART1_UART_Init
-                0x08004860       0x60 ..\obj\usart.o
-                0x08004860                MX_USART1_UART_Init
+                0x08004968       0x60 ..\obj\usart.o
+                0x08004968                MX_USART1_UART_Init
  .text.HAL_UART_MspInit
-                0x080048c0       0x88 ..\obj\usart.o
-                0x080048c0                HAL_UART_MspInit
- .text          0x08004948      0x114 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
-                0x08004948                __aeabi_uidiv
-                0x08004948                __udivsi3
-                0x08004a54                __aeabi_uidivmod
- .text          0x08004a5c        0x4 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_dvmd_tls.o)
-                0x08004a5c                __aeabi_idiv0
-                0x08004a5c                __aeabi_ldiv0
- .text.memcpy   0x08004a60       0x84 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)
-                0x08004a60                memcpy
+                0x080049c8       0x88 ..\obj\usart.o
+                0x080049c8                HAL_UART_MspInit
+ .text          0x08004a50      0x114 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
+                0x08004a50                __aeabi_uidiv
+                0x08004a50                __udivsi3
+                0x08004b5c                __aeabi_uidivmod
+ .text          0x08004b64        0x4 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_dvmd_tls.o)
+                0x08004b64                __aeabi_idiv0
+                0x08004b64                __aeabi_ldiv0
+ .text.memcpy   0x08004b68       0x84 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)
+                0x08004b68                memcpy
  *(.init)
  *(.fini)
  *crtbegin.o(.ctors)
@@ -1404,41 +1431,41 @@ Linker script and memory map
  *(SORT(.dtors.*))
  *(.dtors)
  *(.rodata*)
- .rodata        0x08004ae4       0x20 ..\obj\stm32f0xx_hal_rcc.o
- .rodata        0x08004b04       0x18 ..\obj\system_stm32f0xx.o
-                0x08004b04                AHBPrescTable
-                0x08004b14                APBPrescTable
+ .rodata        0x08004bec       0x20 ..\obj\stm32f0xx_hal_rcc.o
+ .rodata        0x08004c0c       0x18 ..\obj\system_stm32f0xx.o
+                0x08004c0c                AHBPrescTable
+                0x08004c1c                APBPrescTable
  *(.eh_fram e*)
 
-.glue_7         0x08004b1c        0x0
- .glue_7        0x08004b1c        0x0 linker stubs
+.glue_7         0x08004c24        0x0
+ .glue_7        0x08004c24        0x0 linker stubs
 
-.glue_7t        0x08004b1c        0x0
- .glue_7t       0x08004b1c        0x0 linker stubs
+.glue_7t        0x08004c24        0x0
+ .glue_7t       0x08004c24        0x0 linker stubs
 
-.vfp11_veneer   0x08004b1c        0x0
- .vfp11_veneer  0x08004b1c        0x0 linker stubs
+.vfp11_veneer   0x08004c24        0x0
+ .vfp11_veneer  0x08004c24        0x0 linker stubs
 
-.v4_bx          0x08004b1c        0x0
- .v4_bx         0x08004b1c        0x0 linker stubs
+.v4_bx          0x08004c24        0x0
+ .v4_bx         0x08004c24        0x0 linker stubs
 
-.iplt           0x08004b1c        0x0
- .iplt          0x08004b1c        0x0 ..\obj\stm32f0xx_hal_pwr.o
+.iplt           0x08004c24        0x0
+ .iplt          0x08004c24        0x0 ..\obj\stm32f0xx_hal_pwr.o
 
-.rel.dyn        0x08004b1c        0x0
- .rel.iplt      0x08004b1c        0x0 ..\obj\stm32f0xx_hal_pwr.o
+.rel.dyn        0x08004c24        0x0
+ .rel.iplt      0x08004c24        0x0 ..\obj\stm32f0xx_hal_pwr.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x08004b1c                __exidx_start = .
+                0x08004c24                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x08004b1c                __exidx_end = .
-                0x08004b1c                __etext = .
-                0x08004b1c                _sidata = __etext
+                0x08004c24                __exidx_end = .
+                0x08004c24                __etext = .
+                0x08004c24                _sidata = __etext
 
-.data           0x20000000        0x4 load address 0x08004b1c
+.data           0x20000000        0x4 load address 0x08004c24
                 0x20000000                __data_start__ = .
                 0x20000000                _sdata = __data_start__
  *(vtable)
@@ -1464,42 +1491,54 @@ Linker script and memory map
                 0x20000004                __data_end__ = .
                 0x20000004                _edata = __data_end__
 
-.igot.plt       0x20000004        0x0 load address 0x08004b20
+.igot.plt       0x20000004        0x0 load address 0x08004c28
  .igot.plt      0x20000004        0x0 ..\obj\stm32f0xx_hal_pwr.o
 
-.bss            0x20000004      0x234 load address 0x08004b20
+.bss            0x20000004      0x264 load address 0x08004c28
                 0x20000004                . = ALIGN (0x4)
                 0x20000004                __bss_start__ = .
                 0x20000004                _sbss = __bss_start__
  *(.bss*)
+ .bss           0x20000004       0x27 ..\obj\sw_fifo.o
+                0x20000004                rx_fifo
+                0x20000018                tx_fifo
  *(COMMON)
- COMMON         0x20000004       0x64 ..\obj\spi.o
-                0x20000004                hspi1
- COMMON         0x20000068       0x4c ..\obj\i2c.o
-                0x20000068                hi2c2
- COMMON         0x200000b4       0x80 ..\obj\tim.o
-                0x200000b4                htim3
-                0x200000f4                htim1
- COMMON         0x20000134        0x4 ..\obj\stm32f0xx_hal.o
-                0x20000134                uwTick
- COMMON         0x20000138       0x90 ..\obj\adc.o
-                0x20000138                hdma_adc
-                0x2000017c                hadc
- COMMON         0x200001c8       0x70 ..\obj\usart.o
-                0x200001c8                huart1
-                0x20000238                . = ALIGN (0x4)
-                0x20000238                __bss_end__ = .
-                0x20000238                _ebss = __bss_end__
+ *fill*         0x2000002b        0x1 
+ COMMON         0x2000002c       0x64 ..\obj\spi.o
+                0x2000002c                hspi1
+ COMMON         0x20000090       0x4c ..\obj\i2c.o
+                0x20000090                hi2c2
+ COMMON         0x200000dc       0x80 ..\obj\tim.o
+                0x200000dc                htim3
+                0x2000011c                htim1
+ COMMON         0x2000015c        0x4 ..\obj\stm32f0xx_hal.o
+                0x2000015c                uwTick
+ COMMON         0x20000160        0x6 ..\obj\rpi_communication.o
+                0x20000160                uart_tx_fifo_not_empty_flag
+                0x20000161                uart_tx_fifo_full_flag
+                0x20000162                uart_rx_fifo_full_flag
+                0x20000163                uart_tx_fifo_ovf_flag
+                0x20000164                uart_rx_fifo_not_empty_flag
+                0x20000165                uart_rx_fifo_ovf_flag
+ *fill*         0x20000166        0x2 
+ COMMON         0x20000168       0x90 ..\obj\adc.o
+                0x20000168                hdma_adc
+                0x200001ac                hadc
+ COMMON         0x200001f8       0x70 ..\obj\usart.o
+                0x200001f8                huart1
+                0x20000268                . = ALIGN (0x4)
+                0x20000268                __bss_end__ = .
+                0x20000268                _ebss = __bss_end__
 
-.heap           0x20000238        0x0
-                0x20000238                __end__ = .
-                0x20000238                _end = __end__
-                0x20000238                end = __end__
+.heap           0x20000268        0x0
+                0x20000268                __end__ = .
+                0x20000268                _end = __end__
+                0x20000268                end = __end__
  *(.heap*)
-                0x20000238                __HeapLimit = .
+                0x20000268                __HeapLimit = .
 
-.co_stack       0x20000238        0x0
-                0x20000238                . = ALIGN (0x8)
+.co_stack       0x20000268        0x0
+                0x20000268                . = ALIGN (0x8)
  *(.co_stack .co_stack.*)
                 0x20002000                __StackTop = (ORIGIN (ram) + LENGTH (ram))
                 0x20002000                __StackLimit = (__StackTop - SIZEOF (.co_stack))
@@ -1521,7 +1560,9 @@ LOAD ..\obj\stm32f0xx_hal_rcc_ex.o
 LOAD ..\obj\gpio.o
 LOAD ..\obj\stm32f0xx_hal_flash_ex.o
 LOAD ..\obj\stm32f0xx_hal_dma.o
+LOAD ..\obj\rpi_communication.o
 LOAD ..\obj\stm32f0xx_hal_cortex.o
+LOAD ..\obj\sw_fifo.o
 LOAD ..\obj\stm32f0xx_hal_spi.o
 LOAD ..\obj\stm32f0xx_hal_i2c.o
 LOAD ..\obj\stm32f0xx_hal_msp.o
@@ -1544,7 +1585,7 @@ LOAD c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm
 END GROUP
 OUTPUT(TurtleSTM.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x1c7f6
+.debug_info     0x00000000    0x1d870
  .debug_info    0x00000000     0x10ed ..\obj\spi.o
  .debug_info    0x000010ed     0x112e ..\obj\i2c.o
  .debug_info    0x0000221b      0xf94 ..\obj\stm32f0xx_hal_rcc.o
@@ -1557,21 +1598,23 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_info    0x00009c87      0xb8e ..\obj\stm32f0xx_hal_rcc_ex.o
  .debug_info    0x0000a815      0xb78 ..\obj\gpio.o
  .debug_info    0x0000b38d      0xf5c ..\obj\stm32f0xx_hal_dma.o
- .debug_info    0x0000c2e9      0xf18 ..\obj\stm32f0xx_hal_cortex.o
- .debug_info    0x0000d201     0x1d1d ..\obj\stm32f0xx_hal_spi.o
- .debug_info    0x0000ef1e     0x23ab ..\obj\stm32f0xx_hal_i2c.o
- .debug_info    0x000112c9      0xac8 ..\obj\stm32f0xx_hal_msp.o
- .debug_info    0x00011d91      0xfff ..\obj\adc.o
- .debug_info    0x00012d90     0x102d ..\obj\stm32f0xx_hal_i2c_ex.o
- .debug_info    0x00013dbd      0xa68 ..\obj\system_stm32f0xx.o
- .debug_info    0x00014825     0x1423 ..\obj\stm32f0xx_it.o
- .debug_info    0x00015c48     0x178d ..\obj\stm32f0xx_hal_tim_ex.o
- .debug_info    0x000173d5     0x29a5 ..\obj\stm32f0xx_hal_tim.o
- .debug_info    0x00019d7a      0xe4e ..\obj\stm32f0xx_hal_gpio.o
- .debug_info    0x0001abc8      0xac8 ..\obj\dma.o
- .debug_info    0x0001b690     0x1166 ..\obj\usart.o
+ .debug_info    0x0000c2e9       0xe1 ..\obj\rpi_communication.o
+ .debug_info    0x0000c3ca      0xf18 ..\obj\stm32f0xx_hal_cortex.o
+ .debug_info    0x0000d2e2      0xf52 ..\obj\sw_fifo.o
+ .debug_info    0x0000e234     0x1d1d ..\obj\stm32f0xx_hal_spi.o
+ .debug_info    0x0000ff51     0x23ab ..\obj\stm32f0xx_hal_i2c.o
+ .debug_info    0x000122fc      0xac8 ..\obj\stm32f0xx_hal_msp.o
+ .debug_info    0x00012dc4      0xfff ..\obj\adc.o
+ .debug_info    0x00013dc3     0x102d ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_info    0x00014df0      0xa68 ..\obj\system_stm32f0xx.o
+ .debug_info    0x00015858     0x146a ..\obj\stm32f0xx_it.o
+ .debug_info    0x00016cc2     0x178d ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_info    0x0001844f     0x29a5 ..\obj\stm32f0xx_hal_tim.o
+ .debug_info    0x0001adf4      0xe4e ..\obj\stm32f0xx_hal_gpio.o
+ .debug_info    0x0001bc42      0xac8 ..\obj\dma.o
+ .debug_info    0x0001c70a     0x1166 ..\obj\usart.o
 
-.debug_abbrev   0x00000000     0x3a3a
+.debug_abbrev   0x00000000     0x3cbd
  .debug_abbrev  0x00000000      0x22c ..\obj\spi.o
  .debug_abbrev  0x0000022c      0x22c ..\obj\i2c.o
  .debug_abbrev  0x00000458      0x2b9 ..\obj\stm32f0xx_hal_rcc.o
@@ -1584,21 +1627,23 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_abbrev  0x000013a7      0x25b ..\obj\stm32f0xx_hal_rcc_ex.o
  .debug_abbrev  0x00001602      0x1f8 ..\obj\gpio.o
  .debug_abbrev  0x000017fa      0x2ab ..\obj\stm32f0xx_hal_dma.o
- .debug_abbrev  0x00001aa5      0x338 ..\obj\stm32f0xx_hal_cortex.o
- .debug_abbrev  0x00001ddd      0x2cc ..\obj\stm32f0xx_hal_spi.o
- .debug_abbrev  0x000020a9      0x2dd ..\obj\stm32f0xx_hal_i2c.o
- .debug_abbrev  0x00002386      0x1f6 ..\obj\stm32f0xx_hal_msp.o
- .debug_abbrev  0x0000257c      0x234 ..\obj\adc.o
- .debug_abbrev  0x000027b0      0x252 ..\obj\stm32f0xx_hal_i2c_ex.o
- .debug_abbrev  0x00002a02      0x202 ..\obj\system_stm32f0xx.o
- .debug_abbrev  0x00002c04      0x1ed ..\obj\stm32f0xx_it.o
- .debug_abbrev  0x00002df1      0x2c0 ..\obj\stm32f0xx_hal_tim_ex.o
- .debug_abbrev  0x000030b1      0x2e3 ..\obj\stm32f0xx_hal_tim.o
- .debug_abbrev  0x00003394      0x284 ..\obj\stm32f0xx_hal_gpio.o
- .debug_abbrev  0x00003618      0x1f6 ..\obj\dma.o
- .debug_abbrev  0x0000380e      0x22c ..\obj\usart.o
+ .debug_abbrev  0x00001aa5       0x49 ..\obj\rpi_communication.o
+ .debug_abbrev  0x00001aee      0x338 ..\obj\stm32f0xx_hal_cortex.o
+ .debug_abbrev  0x00001e26      0x23a ..\obj\sw_fifo.o
+ .debug_abbrev  0x00002060      0x2cc ..\obj\stm32f0xx_hal_spi.o
+ .debug_abbrev  0x0000232c      0x2dd ..\obj\stm32f0xx_hal_i2c.o
+ .debug_abbrev  0x00002609      0x1f6 ..\obj\stm32f0xx_hal_msp.o
+ .debug_abbrev  0x000027ff      0x234 ..\obj\adc.o
+ .debug_abbrev  0x00002a33      0x252 ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_abbrev  0x00002c85      0x202 ..\obj\system_stm32f0xx.o
+ .debug_abbrev  0x00002e87      0x1ed ..\obj\stm32f0xx_it.o
+ .debug_abbrev  0x00003074      0x2c0 ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_abbrev  0x00003334      0x2e3 ..\obj\stm32f0xx_hal_tim.o
+ .debug_abbrev  0x00003617      0x284 ..\obj\stm32f0xx_hal_gpio.o
+ .debug_abbrev  0x0000389b      0x1f6 ..\obj\dma.o
+ .debug_abbrev  0x00003a91      0x22c ..\obj\usart.o
 
-.debug_aranges  0x00000000     0x1118
+.debug_aranges  0x00000000     0x1168
  .debug_aranges
                 0x00000000       0x30 ..\obj\spi.o
  .debug_aranges
@@ -1624,33 +1669,37 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_aranges
                 0x00000538       0x88 ..\obj\stm32f0xx_hal_dma.o
  .debug_aranges
-                0x000005c0       0xc0 ..\obj\stm32f0xx_hal_cortex.o
+                0x000005c0       0x18 ..\obj\rpi_communication.o
  .debug_aranges
-                0x00000680      0x1d8 ..\obj\stm32f0xx_hal_spi.o
+                0x000005d8       0xc0 ..\obj\stm32f0xx_hal_cortex.o
  .debug_aranges
-                0x00000858      0x260 ..\obj\stm32f0xx_hal_i2c.o
+                0x00000698       0x38 ..\obj\sw_fifo.o
  .debug_aranges
-                0x00000ab8       0x20 ..\obj\stm32f0xx_hal_msp.o
+                0x000006d0      0x1d8 ..\obj\stm32f0xx_hal_spi.o
  .debug_aranges
-                0x00000ad8       0x30 ..\obj\adc.o
+                0x000008a8      0x260 ..\obj\stm32f0xx_hal_i2c.o
  .debug_aranges
-                0x00000b08       0x38 ..\obj\stm32f0xx_hal_i2c_ex.o
+                0x00000b08       0x20 ..\obj\stm32f0xx_hal_msp.o
  .debug_aranges
-                0x00000b40       0x28 ..\obj\system_stm32f0xx.o
+                0x00000b28       0x30 ..\obj\adc.o
  .debug_aranges
-                0x00000b68       0x60 ..\obj\stm32f0xx_it.o
+                0x00000b58       0x38 ..\obj\stm32f0xx_hal_i2c_ex.o
  .debug_aranges
-                0x00000bc8      0x140 ..\obj\stm32f0xx_hal_tim_ex.o
+                0x00000b90       0x28 ..\obj\system_stm32f0xx.o
  .debug_aranges
-                0x00000d08      0x368 ..\obj\stm32f0xx_hal_tim.o
+                0x00000bb8       0x60 ..\obj\stm32f0xx_it.o
  .debug_aranges
-                0x00001070       0x58 ..\obj\stm32f0xx_hal_gpio.o
+                0x00000c18      0x140 ..\obj\stm32f0xx_hal_tim_ex.o
  .debug_aranges
-                0x000010c8       0x20 ..\obj\dma.o
+                0x00000d58      0x368 ..\obj\stm32f0xx_hal_tim.o
  .debug_aranges
-                0x000010e8       0x30 ..\obj\usart.o
+                0x000010c0       0x58 ..\obj\stm32f0xx_hal_gpio.o
+ .debug_aranges
+                0x00001118       0x20 ..\obj\dma.o
+ .debug_aranges
+                0x00001138       0x30 ..\obj\usart.o
 
-.debug_ranges   0x00000000      0xf90
+.debug_ranges   0x00000000      0xfb8
  .debug_ranges  0x00000000       0x20 ..\obj\spi.o
  .debug_ranges  0x00000020       0x20 ..\obj\i2c.o
  .debug_ranges  0x00000040       0x70 ..\obj\stm32f0xx_hal_rcc.o
@@ -1664,20 +1713,21 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_ranges  0x00000480       0x10 ..\obj\gpio.o
  .debug_ranges  0x00000490       0x78 ..\obj\stm32f0xx_hal_dma.o
  .debug_ranges  0x00000508       0xb0 ..\obj\stm32f0xx_hal_cortex.o
- .debug_ranges  0x000005b8      0x1c8 ..\obj\stm32f0xx_hal_spi.o
- .debug_ranges  0x00000780      0x250 ..\obj\stm32f0xx_hal_i2c.o
- .debug_ranges  0x000009d0       0x10 ..\obj\stm32f0xx_hal_msp.o
- .debug_ranges  0x000009e0       0x20 ..\obj\adc.o
- .debug_ranges  0x00000a00       0x28 ..\obj\stm32f0xx_hal_i2c_ex.o
- .debug_ranges  0x00000a28       0x18 ..\obj\system_stm32f0xx.o
- .debug_ranges  0x00000a40       0x50 ..\obj\stm32f0xx_it.o
- .debug_ranges  0x00000a90      0x130 ..\obj\stm32f0xx_hal_tim_ex.o
- .debug_ranges  0x00000bc0      0x358 ..\obj\stm32f0xx_hal_tim.o
- .debug_ranges  0x00000f18       0x48 ..\obj\stm32f0xx_hal_gpio.o
- .debug_ranges  0x00000f60       0x10 ..\obj\dma.o
- .debug_ranges  0x00000f70       0x20 ..\obj\usart.o
+ .debug_ranges  0x000005b8       0x28 ..\obj\sw_fifo.o
+ .debug_ranges  0x000005e0      0x1c8 ..\obj\stm32f0xx_hal_spi.o
+ .debug_ranges  0x000007a8      0x250 ..\obj\stm32f0xx_hal_i2c.o
+ .debug_ranges  0x000009f8       0x10 ..\obj\stm32f0xx_hal_msp.o
+ .debug_ranges  0x00000a08       0x20 ..\obj\adc.o
+ .debug_ranges  0x00000a28       0x28 ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_ranges  0x00000a50       0x18 ..\obj\system_stm32f0xx.o
+ .debug_ranges  0x00000a68       0x50 ..\obj\stm32f0xx_it.o
+ .debug_ranges  0x00000ab8      0x130 ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_ranges  0x00000be8      0x358 ..\obj\stm32f0xx_hal_tim.o
+ .debug_ranges  0x00000f40       0x48 ..\obj\stm32f0xx_hal_gpio.o
+ .debug_ranges  0x00000f88       0x10 ..\obj\dma.o
+ .debug_ranges  0x00000f98       0x20 ..\obj\usart.o
 
-.debug_line     0x00000000     0xa99d
+.debug_line     0x00000000     0xb005
  .debug_line    0x00000000      0x45d ..\obj\spi.o
  .debug_line    0x0000045d      0x455 ..\obj\i2c.o
  .debug_line    0x000008b2      0x60b ..\obj\stm32f0xx_hal_rcc.o
@@ -1690,21 +1740,23 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_line    0x00003515      0x46f ..\obj\stm32f0xx_hal_rcc_ex.o
  .debug_line    0x00003984      0x36a ..\obj\gpio.o
  .debug_line    0x00003cee      0x5af ..\obj\stm32f0xx_hal_dma.o
- .debug_line    0x0000429d      0x53a ..\obj\stm32f0xx_hal_cortex.o
- .debug_line    0x000047d7      0xe19 ..\obj\stm32f0xx_hal_spi.o
- .debug_line    0x000055f0     0x1465 ..\obj\stm32f0xx_hal_i2c.o
- .debug_line    0x00006a55      0x2c8 ..\obj\stm32f0xx_hal_msp.o
- .debug_line    0x00006d1d      0x482 ..\obj\adc.o
- .debug_line    0x0000719f      0x466 ..\obj\stm32f0xx_hal_i2c_ex.o
- .debug_line    0x00007605      0x2f8 ..\obj\system_stm32f0xx.o
- .debug_line    0x000078fd      0x454 ..\obj\stm32f0xx_it.o
- .debug_line    0x00007d51      0x9cb ..\obj\stm32f0xx_hal_tim_ex.o
- .debug_line    0x0000871c     0x1656 ..\obj\stm32f0xx_hal_tim.o
- .debug_line    0x00009d72      0x51a ..\obj\stm32f0xx_hal_gpio.o
- .debug_line    0x0000a28c      0x2b9 ..\obj\dma.o
- .debug_line    0x0000a545      0x458 ..\obj\usart.o
+ .debug_line    0x0000429d      0x16e ..\obj\rpi_communication.o
+ .debug_line    0x0000440b      0x53a ..\obj\stm32f0xx_hal_cortex.o
+ .debug_line    0x00004945      0x475 ..\obj\sw_fifo.o
+ .debug_line    0x00004dba      0xe19 ..\obj\stm32f0xx_hal_spi.o
+ .debug_line    0x00005bd3     0x1465 ..\obj\stm32f0xx_hal_i2c.o
+ .debug_line    0x00007038      0x2c8 ..\obj\stm32f0xx_hal_msp.o
+ .debug_line    0x00007300      0x482 ..\obj\adc.o
+ .debug_line    0x00007782      0x466 ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_line    0x00007be8      0x2f8 ..\obj\system_stm32f0xx.o
+ .debug_line    0x00007ee0      0x4d9 ..\obj\stm32f0xx_it.o
+ .debug_line    0x000083b9      0x9cb ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_line    0x00008d84     0x1656 ..\obj\stm32f0xx_hal_tim.o
+ .debug_line    0x0000a3da      0x51a ..\obj\stm32f0xx_hal_gpio.o
+ .debug_line    0x0000a8f4      0x2b9 ..\obj\dma.o
+ .debug_line    0x0000abad      0x458 ..\obj\usart.o
 
-.debug_str      0x00000000     0x541f
+.debug_str      0x00000000     0x5637
  .debug_str     0x00000000      0xc0b ..\obj\spi.o
                                 0xcc3 (size before relaxing)
  .debug_str     0x00000c0b      0x329 ..\obj\i2c.o
@@ -1727,31 +1779,35 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
                                 0x744 (size before relaxing)
  .debug_str     0x00002978      0x2ba ..\obj\stm32f0xx_hal_dma.o
                                 0xabc (size before relaxing)
- .debug_str     0x00002c32      0x260 ..\obj\stm32f0xx_hal_cortex.o
+ .debug_str     0x00002c32      0x115 ..\obj\rpi_communication.o
+                                0x227 (size before relaxing)
+ .debug_str     0x00002d47      0x260 ..\obj\stm32f0xx_hal_cortex.o
                                 0xa94 (size before relaxing)
- .debug_str     0x00002e92      0x56b ..\obj\stm32f0xx_hal_spi.o
+ .debug_str     0x00002fa7      0x103 ..\obj\sw_fifo.o
+                                0xbd7 (size before relaxing)
+ .debug_str     0x000030aa      0x56b ..\obj\stm32f0xx_hal_spi.o
                                 0xfb3 (size before relaxing)
- .debug_str     0x000033fd      0x7e5 ..\obj\stm32f0xx_hal_i2c.o
+ .debug_str     0x00003615      0x7e5 ..\obj\stm32f0xx_hal_i2c.o
                                0x12ee (size before relaxing)
- .debug_str     0x00003be2       0x83 ..\obj\stm32f0xx_hal_msp.o
+ .debug_str     0x00003dfa       0x83 ..\obj\stm32f0xx_hal_msp.o
                                 0x834 (size before relaxing)
- .debug_str     0x00003c65       0x94 ..\obj\adc.o
+ .debug_str     0x00003e7d       0x94 ..\obj\adc.o
                                 0xaf7 (size before relaxing)
- .debug_str     0x00003cf9      0x142 ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_str     0x00003f11      0x142 ..\obj\stm32f0xx_hal_i2c_ex.o
                                 0xc53 (size before relaxing)
- .debug_str     0x00003e3b       0xc2 ..\obj\system_stm32f0xx.o
+ .debug_str     0x00004053       0xc2 ..\obj\system_stm32f0xx.o
                                 0x6df (size before relaxing)
- .debug_str     0x00003efd      0x112 ..\obj\stm32f0xx_it.o
-                                0xfc8 (size before relaxing)
- .debug_str     0x0000400f      0x533 ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_str     0x00004115      0x112 ..\obj\stm32f0xx_it.o
+                               0x105a (size before relaxing)
+ .debug_str     0x00004227      0x533 ..\obj\stm32f0xx_hal_tim_ex.o
                                0x104c (size before relaxing)
- .debug_str     0x00004542      0xc39 ..\obj\stm32f0xx_hal_tim.o
+ .debug_str     0x0000475a      0xc39 ..\obj\stm32f0xx_hal_tim.o
                                0x1793 (size before relaxing)
- .debug_str     0x0000517b      0x18d ..\obj\stm32f0xx_hal_gpio.o
+ .debug_str     0x00005393      0x18d ..\obj\stm32f0xx_hal_gpio.o
                                 0x8b9 (size before relaxing)
- .debug_str     0x00005308       0x81 ..\obj\dma.o
+ .debug_str     0x00005520       0x81 ..\obj\dma.o
                                 0x826 (size before relaxing)
- .debug_str     0x00005389       0x96 ..\obj\usart.o
+ .debug_str     0x000055a1       0x96 ..\obj\usart.o
                                 0xd60 (size before relaxing)
 
 .comment        0x00000000       0x6e
@@ -1767,7 +1823,9 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_rcc_ex.o
  .comment       0x0000006e       0x6f ..\obj\gpio.o
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_dma.o
+ .comment       0x0000006e       0x6f ..\obj\rpi_communication.o
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_cortex.o
+ .comment       0x0000006e       0x6f ..\obj\sw_fifo.o
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_spi.o
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_i2c.o
  .comment       0x0000006e       0x6f ..\obj\stm32f0xx_hal_msp.o
@@ -1808,39 +1866,43 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .ARM.attributes
                 0x0000020b       0x31 ..\obj\stm32f0xx_hal_dma.o
  .ARM.attributes
-                0x0000023c       0x31 ..\obj\stm32f0xx_hal_cortex.o
+                0x0000023c       0x31 ..\obj\rpi_communication.o
  .ARM.attributes
-                0x0000026d       0x31 ..\obj\stm32f0xx_hal_spi.o
+                0x0000026d       0x31 ..\obj\stm32f0xx_hal_cortex.o
  .ARM.attributes
-                0x0000029e       0x31 ..\obj\stm32f0xx_hal_i2c.o
+                0x0000029e       0x31 ..\obj\sw_fifo.o
  .ARM.attributes
-                0x000002cf       0x31 ..\obj\stm32f0xx_hal_msp.o
+                0x000002cf       0x31 ..\obj\stm32f0xx_hal_spi.o
  .ARM.attributes
-                0x00000300       0x31 ..\obj\adc.o
+                0x00000300       0x31 ..\obj\stm32f0xx_hal_i2c.o
  .ARM.attributes
-                0x00000331       0x31 ..\obj\stm32f0xx_hal_i2c_ex.o
+                0x00000331       0x31 ..\obj\stm32f0xx_hal_msp.o
  .ARM.attributes
-                0x00000362       0x31 ..\obj\system_stm32f0xx.o
+                0x00000362       0x31 ..\obj\adc.o
  .ARM.attributes
-                0x00000393       0x31 ..\obj\stm32f0xx_it.o
+                0x00000393       0x31 ..\obj\stm32f0xx_hal_i2c_ex.o
  .ARM.attributes
-                0x000003c4       0x31 ..\obj\stm32f0xx_hal_tim_ex.o
+                0x000003c4       0x31 ..\obj\system_stm32f0xx.o
  .ARM.attributes
-                0x000003f5       0x31 ..\obj\stm32f0xx_hal_tim.o
+                0x000003f5       0x31 ..\obj\stm32f0xx_it.o
  .ARM.attributes
-                0x00000426       0x31 ..\obj\stm32f0xx_hal_gpio.o
+                0x00000426       0x31 ..\obj\stm32f0xx_hal_tim_ex.o
  .ARM.attributes
-                0x00000457       0x31 ..\obj\dma.o
+                0x00000457       0x31 ..\obj\stm32f0xx_hal_tim.o
  .ARM.attributes
-                0x00000488       0x31 ..\obj\usart.o
+                0x00000488       0x31 ..\obj\stm32f0xx_hal_gpio.o
  .ARM.attributes
-                0x000004b9       0x1e c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
+                0x000004b9       0x31 ..\obj\dma.o
  .ARM.attributes
-                0x000004d7       0x1e c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_dvmd_tls.o)
+                0x000004ea       0x31 ..\obj\usart.o
  .ARM.attributes
-                0x000004f5       0x2c c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)
+                0x0000051b       0x1e c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
+ .ARM.attributes
+                0x00000539       0x1e c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x00000557       0x2c c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)
 
-.debug_frame    0x00000000     0x3bf0
+.debug_frame    0x00000000     0x3c78
  .debug_frame   0x00000000       0x6c ..\obj\spi.o
  .debug_frame   0x0000006c       0x6c ..\obj\i2c.o
  .debug_frame   0x000000d8      0x194 ..\obj\stm32f0xx_hal_rcc.o
@@ -1853,17 +1915,18 @@ OUTPUT(TurtleSTM.elf elf32-littlearm)
  .debug_frame   0x00001088       0x30 ..\obj\gpio.o
  .debug_frame   0x000010b8      0x1d0 ..\obj\stm32f0xx_hal_dma.o
  .debug_frame   0x00001288      0x2a4 ..\obj\stm32f0xx_hal_cortex.o
- .debug_frame   0x0000152c      0x710 ..\obj\stm32f0xx_hal_spi.o
- .debug_frame   0x00001c3c      0x930 ..\obj\stm32f0xx_hal_i2c.o
- .debug_frame   0x0000256c       0x30 ..\obj\stm32f0xx_hal_msp.o
- .debug_frame   0x0000259c       0x70 ..\obj\adc.o
- .debug_frame   0x0000260c       0x90 ..\obj\stm32f0xx_hal_i2c_ex.o
- .debug_frame   0x0000269c       0x4c ..\obj\system_stm32f0xx.o
- .debug_frame   0x000026e8      0x10c ..\obj\stm32f0xx_it.o
- .debug_frame   0x000027f4      0x4b0 ..\obj\stm32f0xx_hal_tim_ex.o
- .debug_frame   0x00002ca4      0xd50 ..\obj\stm32f0xx_hal_tim.o
- .debug_frame   0x000039f4      0x110 ..\obj\stm32f0xx_hal_gpio.o
- .debug_frame   0x00003b04       0x30 ..\obj\dma.o
- .debug_frame   0x00003b34       0x6c ..\obj\usart.o
- .debug_frame   0x00003ba0       0x20 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
- .debug_frame   0x00003bc0       0x30 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x0000152c       0x88 ..\obj\sw_fifo.o
+ .debug_frame   0x000015b4      0x710 ..\obj\stm32f0xx_hal_spi.o
+ .debug_frame   0x00001cc4      0x930 ..\obj\stm32f0xx_hal_i2c.o
+ .debug_frame   0x000025f4       0x30 ..\obj\stm32f0xx_hal_msp.o
+ .debug_frame   0x00002624       0x70 ..\obj\adc.o
+ .debug_frame   0x00002694       0x90 ..\obj\stm32f0xx_hal_i2c_ex.o
+ .debug_frame   0x00002724       0x4c ..\obj\system_stm32f0xx.o
+ .debug_frame   0x00002770      0x10c ..\obj\stm32f0xx_it.o
+ .debug_frame   0x0000287c      0x4b0 ..\obj\stm32f0xx_hal_tim_ex.o
+ .debug_frame   0x00002d2c      0xd50 ..\obj\stm32f0xx_hal_tim.o
+ .debug_frame   0x00003a7c      0x110 ..\obj\stm32f0xx_hal_gpio.o
+ .debug_frame   0x00003b8c       0x30 ..\obj\dma.o
+ .debug_frame   0x00003bbc       0x6c ..\obj\usart.o
+ .debug_frame   0x00003c28       0x20 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/thumb/v6-m\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00003c48       0x30 c:/program files (x86)/gnu tools arm embedded/6.2 2016q4/bin/../lib/gcc/arm-none-eabi/6.2.1/../../../../arm-none-eabi/lib/thumb/v6-m\libg.a(lib_a-memcpy-stub.o)

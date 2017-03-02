@@ -36,7 +36,7 @@
 #include "stm32f0xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "sw_fifo.h"
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -182,6 +182,15 @@ void USART1_IRQHandler(void)
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
+
+  if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_RXNE)) {
+    FIFO_receive_handler();
+    __HAL_UART_CLEAR_IT(&huart1, UART_IT_RXNE);
+  }
+  else if (__HAL_UART_GET_FLAG(&huart1, UART_FLAG_TXE)) {
+    FIFO_transmit_handler();
+    __HAL_UART_CLEAR_IT(&huart1, UART_IT_TXE);
+  }
 
   /* USER CODE END USART1_IRQn 1 */
 }

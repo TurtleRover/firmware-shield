@@ -12,19 +12,48 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.coocox.welcome.ui.WelcomePage" name="" partName="welcome" title="welcome" tooltip="" workbook="DefaultEditorWorkbook">
-<input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">
-<org.coocox.welcome.ui.WelcomePage/>
+<input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">&#x0A;<org.coocox.welcome.ui.WelcomePage/>
 </input>
 </editor>
-<editor activePart="true" focus="true" id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
+<editor id="org.coocox.builder.ui.editors.ConfigEditor" name="" partName="Configuration" title="Configuration" tooltip="" workbook="DefaultEditorWorkbook">
 <input factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory">
 <org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="1" verticalPosition="0"/>
 </input>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/main.c" title="main.c" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/main.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Src/main.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="19" selectionOffset="3335" selectionTopPixel="1002"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="tim.h" partName="tim.h" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Inc/tim.h" title="tim.h" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Inc/tim.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Inc/tim.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="420"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="tim.c" partName="tim.c" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/tim.c" title="tim.c" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/tim.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Src/tim.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="483"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="usart.c" partName="usart.c" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/usart.c" title="usart.c" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/usart.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Src/usart.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3654" selectionTopPixel="910"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="sw_fifo.h" partName="sw_fifo.h" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Inc/sw_fifo.h" title="sw_fifo.h" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Inc/sw_fifo.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Inc/sw_fifo.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="27" selectionTopPixel="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="sw_fifo.c" partName="sw_fifo.c" path="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/sw_fifo.c" title="sw_fifo.c" tooltip="C:/Users/Marcin Twardak/Google Drive/ALL/[01] Public/[02] [Marcin]/02 Software/02 STM32 Software/TurtleSTM/Src/sw_fifo.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/TurtleSTM/Src/sw_fifo.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2528" selectionTopPixel="280"/>
 </editor>
 </editors>
 <views>
@@ -32,12 +61,13 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" horizontalPosition="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0" verticalPosition="0">
 <expanded>
 <element path="/TurtleSTM"/>
+<element path="/TurtleSTM/cmsis_boot"/>
+<element path="/TurtleSTM/cmsis_boot/startup"/>
 <element path="/TurtleSTM/Inc"/>
 <element path="/TurtleSTM/Src"/>
-<element path="/TurtleSTM/startup"/>
 </expanded>
 <selection>
-<element path="/TurtleSTM"/>
+<element path="/TurtleSTM/Src/sw_fifo.c"/>
 </selection>
 </viewState>
 </view>
@@ -54,7 +84,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.coocox.builder.ui.views.ProjectView" activePerspective="org.coocox.builder.perspective.CoBuilder">
+<perspectives activePart="org.eclipse.cdt.ui.editor.CEditor" activePerspective="org.coocox.builder.perspective.CoBuilder">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.coocox.builder.ui.PerspectiveCoBuilder" id="org.coocox.builder.perspective.CoBuilder" label="CooCox CoBuilder"/>
 <alwaysOnActionSet id="org.coocox.component.ui.actionSet"/>
@@ -86,10 +116,15 @@
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.TerminateAndRelaunch"/>
 <view id="org.coocox.component.ui.ComponentView"/>
 <view id="org.coocox.builder.ui.views.ProjectView"/>
-<view id="org.coocox.component.ui.Help"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<fastViewBars/>
+<fastViewBars>
+<fastViewBar fastViewLocation="131072" id="org.eclipse.ui.internal.ViewStack@6a60d5" orientation="512" selectedTabId="org.coocox.component.ui.Help" style="0">
+<fastViews>
+<view id="org.coocox.component.ui.Help" ratio="0.3"/>
+<view id="org.eclipse.ui.views.ContentOutline" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+</fastViewBars>
 <layout>
 <mainWindow>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@183e895">
@@ -106,7 +141,7 @@
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1583f79" ratio="0.61015415" ratioLeft="673" ratioRight="430" relationship="4" relative="org.eclipse.ui.internal.ViewStack@183e895">
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1583f79" ratio="0.89936537" ratioLeft="992" ratioRight="111" relationship="4" relative="org.eclipse.ui.internal.ViewStack@183e895">
 <folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
@@ -116,16 +151,13 @@
 </info>
 <info part="org.coocox.builder.ui.exampleView" ratio="0.1990571" ratioLeft="380" ratioRight="1529" relationship="2" relative="org.eclipse.ui.internal.ViewStack@183e895"/>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@6a60d5" ratio="0.7192308" ratioLeft="561" ratioRight="219" relationship="2" relative="org.coocox.builder.ui.exampleView">
-<folder activePageID="org.coocox.component.ui.Help" appearance="2" expanded="2">
-<page content="org.coocox.component.ui.Help" label="Help"/>
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<folder appearance="2" expanded="0">
+<page content="org.coocox.component.ui.Help" label="LabelNotFound"/>
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
 <page content="org.coocox.coassistant.view.CoAssistantView" label="LabelNotFound"/>
 <page content="org.coocox.builder.ui.MoreExampleView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-<part id="1"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.44952682" ratioLeft="285" ratioRight="349" relationship="4" relative="org.coocox.builder.ui.exampleView"/>
@@ -162,6 +194,19 @@
 <editor factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor">
 <org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="1" verticalPosition="0"/>
 </editor>
+<editor factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor">
+<org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="1" verticalPosition="0"/>
+</editor>
+<editor factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser">
+<subPage/>
+</editor>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Src/main.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Inc/tim.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Src/tim.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Src/usart.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Src/rpi_communication.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Inc/sw_fifo.h"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/TurtleSTM/Src/sw_fifo.c"/>
 </editors>
 <item historyLabel="welcome" index="0"/>
 <item historyLabel="Repository" index="1"/>
@@ -190,7 +235,91 @@
 <position info="not_deleted" x="5811" y="0"/>
 </item>
 <item historyLabel="welcome" index="0"/>
-<item active="true" historyLabel="Configuration" index="7"/>
+<item historyLabel="Configuration" index="7"/>
+<item historyLabel="Configuration" index="8"/>
+<item historyLabel="Repository" index="9"/>
+<item historyLabel="Configuration" index="8"/>
+<item historyLabel="main.c" index="10">
+<position info="not_deleted" x="3518" y="0"/>
+</item>
+<item historyLabel="tim.h" index="11">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="tim.c" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3748" y="0"/>
+</item>
+<item historyLabel="main.c" index="10">
+<position info="not_deleted" x="3518" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3748" y="0"/>
+</item>
+<item historyLabel="rpi_communication.c" index="14">
+<position info="not_deleted" x="144" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3748" y="0"/>
+</item>
+<item historyLabel="rpi_communication.c" index="14">
+<position info="not_deleted" x="142" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3748" y="0"/>
+</item>
+<item historyLabel="rpi_communication.c" index="14">
+<position info="not_deleted" x="142" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="458" y="0"/>
+</item>
+<item historyLabel="sw_fifo.h" index="15">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="sw_fifo.c" index="16">
+<position info="not_deleted" x="1337" y="0"/>
+</item>
+<item historyLabel="sw_fifo.h" index="15">
+<position info="not_deleted" x="27" y="0"/>
+</item>
+<item historyLabel="sw_fifo.c" index="16">
+<position info="not_deleted" x="528" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3654" y="0"/>
+</item>
+<item historyLabel="main.c" index="10">
+<position info="not_deleted" x="3335" y="19"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3654" y="0"/>
+</item>
+<item historyLabel="main.c" index="10">
+<position info="not_deleted" x="3335" y="19"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3654" y="0"/>
+</item>
+<item historyLabel="tim.c" index="12">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="main.c" index="10">
+<position info="not_deleted" x="3335" y="19"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3654" y="0"/>
+</item>
+<item historyLabel="sw_fifo.c" index="16">
+<position info="not_deleted" x="2662" y="0"/>
+</item>
+<item historyLabel="usart.c" index="13">
+<position info="not_deleted" x="3654" y="0"/>
+</item>
+<item active="true" historyLabel="sw_fifo.c" index="16">
+<position info="not_deleted" x="2662" y="0"/>
+</item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -198,13 +327,41 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="sw_fifo.c" tooltip="TurtleSTM/Src/sw_fifo.c">
+<persistable path="/TurtleSTM/Src/sw_fifo.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="sw_fifo.h" tooltip="TurtleSTM/Inc/sw_fifo.h">
+<persistable path="/TurtleSTM/Inc/sw_fifo.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="rpi_communication.c" tooltip="TurtleSTM/Src/rpi_communication.c">
+<persistable path="/TurtleSTM/Src/rpi_communication.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="usart.c" tooltip="TurtleSTM/Src/usart.c">
+<persistable path="/TurtleSTM/Src/usart.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="tim.c" tooltip="TurtleSTM/Src/tim.c">
+<persistable path="/TurtleSTM/Src/tim.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="tim.h" tooltip="TurtleSTM/Inc/tim.h">
+<persistable path="/TurtleSTM/Inc/tim.h"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="TurtleSTM/Src/main.c">
+<persistable path="/TurtleSTM/Src/main.c"/>
+</file>
+<file factoryID="org.coocox.component.ui.editors.repository.RepositoryElementFactory" id="org.coocox.builder.ui.editors.repository.RepositoryBrowser" name="Repository" tooltip="Repository">
+<persistable>
+<subPage/>
+</persistable>
+</file>
+<file factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.welcome.ui.WelcomePage" name="" tooltip="">
+<persistable>
+<org.coocox.welcome.ui.WelcomePage/>
+</persistable>
+</file>
 <file factoryID="org.coocox.builder.ui.persistent.PersistentElementFactory" id="org.coocox.builder.ui.editors.ConfigEditor" name="" tooltip="">
 <persistable>
 <org.coocox.builder.ui.editors.ConfigEditor horizontalPosition="0" subTagIndex="1" verticalPosition="0"/>
 </persistable>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="TurtleSTM/Src/main.c">
-<persistable path="/TurtleSTM/Src/main.c"/>
 </file>
 </mruList>
 </workbench>
