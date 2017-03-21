@@ -67,7 +67,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, IN21_UC_Pin|IN22_UC_Pin|IN31_UC_Pin|IN32_UC_Pin 
-                          |IN41_UC_Pin|IN42_UC_Pin|IN11_UC_Pin|IN12_UC_Pin, GPIO_PIN_RESET);
+                          |IN41_UC_Pin|IN42_UC_Pin|IN11_UC_Pin|IN12_UC_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = LED_Pin;

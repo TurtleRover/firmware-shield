@@ -96,12 +96,24 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	HAL_GPIO_WritePin(IN11_UC_GPIO_Port, IN11_UC_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(IN12_UC_GPIO_Port, IN12_UC_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(IN21_UC_GPIO_Port, IN21_UC_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(IN22_UC_GPIO_Port, IN22_UC_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(IN31_UC_GPIO_Port, IN31_UC_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(IN32_UC_GPIO_Port, IN32_UC_Pin, GPIO_PIN_RESET);
+
+	HAL_GPIO_WritePin(IN41_UC_GPIO_Port, IN41_UC_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(IN42_UC_GPIO_Port, IN42_UC_Pin, GPIO_PIN_RESET);
+
+
   while (1)
   {
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	 HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
 
   }
   /* USER CODE END 3 */
