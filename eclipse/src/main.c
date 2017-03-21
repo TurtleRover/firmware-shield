@@ -108,6 +108,12 @@ int main(void)
 	HAL_GPIO_WritePin(IN41_UC_GPIO_Port, IN41_UC_Pin, GPIO_PIN_SET);
 	HAL_GPIO_WritePin(IN42_UC_GPIO_Port, IN42_UC_Pin, GPIO_PIN_RESET);
 
+	HAL_TIM_Base_Start(&htim1);
+	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
+	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
+	//HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_4);
+
 
   while (1)
   {

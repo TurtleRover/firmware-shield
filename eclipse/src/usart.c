@@ -93,6 +93,10 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_NVIC_EnableIRQ(USART1_IRQn);
   /* USER CODE BEGIN USART1_MspInit 1 */
 
+    // enable receive interrupt
+    SET_BIT(USART1->CR1, USART_CR1_RXNEIE);
+    // disable transmit interrupt
+    CLEAR_BIT(USART1->CR1, USART_CR1_TXEIE);
   /* USER CODE END USART1_MspInit 1 */
   }
 }
