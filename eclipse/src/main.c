@@ -115,7 +115,7 @@ int main(void)
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
 
-	  if(HAL_UART_Receive_DMA(&huart1, (uint8_t *)rxBuffer, 2) != HAL_OK)
+	  if(HAL_UART_Receive_DMA(&huart1, rxBuffer, 2) != HAL_OK)
 	  {
 	    Error_Handler();
 	  }
@@ -134,11 +134,12 @@ int main(void)
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+	TIM1->CCR1 = rxBuffer[0] * 100;
+	TIM1->CCR2 = rxBuffer[1] * 100;
+
     __HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
 
-    TIM1->CCR1 = 4800;
-    TIM1->CCR2 = 9600;
-    TIM1->CCR3 = 19200;
+    HAL_UART_Receive_DMA(&huart1, rxBuffer, 2);
 }
 
 /** System Clock Configuration

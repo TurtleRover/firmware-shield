@@ -154,10 +154,6 @@ void DMA1_Channel2_3_IRQHandler(void)
   HAL_DMA_IRQHandler(&hdma_usart1_tx);
   HAL_DMA_IRQHandler(&hdma_usart1_rx);
   /* USER CODE BEGIN DMA1_Channel2_3_IRQn 1 */
-  TIM1->CCR1 = 4800;
-      TIM1->CCR2 = 9600;
-      TIM1->CCR3 = 19200;
-
   /* USER CODE END DMA1_Channel2_3_IRQn 1 */
 }
 
@@ -203,9 +199,6 @@ void USART1_IRQHandler(void)
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-  TIM1->CCR1 = 4800;
-      TIM1->CCR2 = 9600;
-      TIM1->CCR3 = 19200;
   /* USER CODE END USART1_IRQn 1 */
 }
 
