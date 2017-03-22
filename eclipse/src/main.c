@@ -97,9 +97,6 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
-	if(HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE) != HAL_OK)
-		Error_Handler();
-
 
   while (1)
   {

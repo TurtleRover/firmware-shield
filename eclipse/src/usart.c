@@ -68,6 +68,8 @@ void MX_USART1_UART_Init(void)
   {
     Error_Handler();
   }
+  if(HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE) != HAL_OK)
+      Error_Handler();
 
 }
 
