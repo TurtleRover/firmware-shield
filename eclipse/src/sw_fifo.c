@@ -39,7 +39,12 @@ void FIFO_receive_handler() {
   }
 
   /* if end of message call function which reads it */
-  if (rx_fifo.data_buf[rx_fifo.i_last - 1] == '\n')
+  if (rx_fifo.data_buf[rx_fifo.i_last - 1] == '\n') {
+	  TIM1->CCR1 = 24000;
+	  TIM1->CCR2 = 24000;
+	  TIM1->CCR3 = 24000;
+	  TIM1->CCR4 = 24000;
+  }
 
   if(rx_fifo.i_last == FIFO_BUFFER_SIZE) {         // if the index has reached the end of the buffer,
     rx_fifo.i_last = 0;                            // roll over the index counter

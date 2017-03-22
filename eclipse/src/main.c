@@ -42,7 +42,9 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "sw_fifo.h"
 
+uint8_t rxBuffer[2];
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -112,7 +114,11 @@ int main(void)
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
-	//HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_4);
+
+	  if(HAL_UART_Receive_DMA(&huart1, (uint8_t *)rxBuffer, 2) != HAL_OK)
+	  {
+	    Error_Handler();
+	  }
 
 
   while (1)
@@ -124,6 +130,15 @@ int main(void)
   }
   /* USER CODE END 3 */
 
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    __HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
+
+    TIM1->CCR1 = 4800;
+    TIM1->CCR2 = 9600;
+    TIM1->CCR3 = 19200;
 }
 
 /** System Clock Configuration

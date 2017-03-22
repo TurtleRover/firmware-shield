@@ -1,3 +1,6 @@
+#ifndef _SW_FIFO_H_
+#define _SW_FIFO_H_
+
 #define FIFO_BUFFER_SIZE 16 // software buffer size (in bytes)
 
 // UART data transmit function
@@ -26,3 +29,7 @@ extern volatile uint8_t uart_rx_fifo_ovf_flag;       // this flag is not automat
 extern volatile uint8_t uart_tx_fifo_full_flag;      // this flag is automatically set and cleared by the software buffer
 extern volatile uint8_t uart_tx_fifo_ovf_flag;       // this flag is not automatically cleared by the software buffer
 extern volatile uint8_t uart_tx_fifo_not_empty_flag; // this flag is automatically set and cleared by the software buffer
+
+extern volatile uint8_t ch;
+
+#endif
