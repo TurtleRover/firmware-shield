@@ -42,16 +42,14 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#include "sw_fifo.h"
 
-uint8_t rxBuffer[2];
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern uint8_t rxBuffer[RX_BUFFER_SIZE];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -98,27 +96,9 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	HAL_GPIO_WritePin(IN11_UC_GPIO_Port, IN11_UC_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(IN12_UC_GPIO_Port, IN12_UC_Pin, GPIO_PIN_RESET);
 
-	HAL_GPIO_WritePin(IN21_UC_GPIO_Port, IN21_UC_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(IN22_UC_GPIO_Port, IN22_UC_Pin, GPIO_PIN_RESET);
-
-	HAL_GPIO_WritePin(IN31_UC_GPIO_Port, IN31_UC_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(IN32_UC_GPIO_Port, IN32_UC_Pin, GPIO_PIN_RESET);
-
-	HAL_GPIO_WritePin(IN41_UC_GPIO_Port, IN41_UC_Pin, GPIO_PIN_SET);
-	HAL_GPIO_WritePin(IN42_UC_GPIO_Port, IN42_UC_Pin, GPIO_PIN_RESET);
-
-	HAL_TIM_Base_Start(&htim1);
-	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
-	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_3);
-
-	  if(HAL_UART_Receive_DMA(&huart1, rxBuffer, 2) != HAL_OK)
-	  {
-	    Error_Handler();
-	  }
+	if(HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE) != HAL_OK)
+		Error_Handler();
 
 
   while (1)
@@ -130,16 +110,6 @@ int main(void)
   }
   /* USER CODE END 3 */
 
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-	TIM1->CCR1 = rxBuffer[0] * 100;
-	TIM1->CCR2 = rxBuffer[1] * 100;
-
-    __HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
-
-    HAL_UART_Receive_DMA(&huart1, rxBuffer, 2);
 }
 
 /** System Clock Configuration

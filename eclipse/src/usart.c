@@ -39,12 +39,15 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "motors.h"
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart1_tx;
+
+uint8_t rxBuffer[RX_BUFFER_SIZE];
+uint8_t txBuffer[TX_BUFFER_SIZE];
 
 /* USART1 init function */
 
@@ -163,6 +166,30 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart->Instance == USART1) {
+		/*	check further only if the last characters are fine	*/
+		if (rxBuffer[RX_BUFFER_SIZE-2] == 0x0D && rxBuffer[RX_BUFFER_SIZE-1] == 0x0A) {
+			switch (rxBuffer[0]) {
+			/*	set motors speed	*/
+			case 0x10:
+				setMotorX(1, rxBuffer[1] & 0x7F, (rxBuffer[1] & 0x80) >> 7);
+				setMotorX(2, rxBuffer[2] & 0x7F, (rxBuffer[2] & 0x80) >> 7);
+				setMotorX(3, rxBuffer[3] & 0x7F, (rxBuffer[3] & 0x80) >> 7);
+				setMotorX(4, rxBuffer[4] & 0x7F, (rxBuffer[4] & 0x80) >> 7);
+				break;
+			default:
+				break;
+			}
+		}
+
+		__HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
+
+		HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE);
+	}
+}
 
 /* USER CODE END 1 */
 

@@ -49,7 +49,8 @@
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
-
+#define RX_BUFFER_SIZE 7
+#define TX_BUFFER_SIZE 7
 /* USER CODE END Private defines */
 
 extern void Error_Handler(void);
@@ -57,7 +58,7 @@ extern void Error_Handler(void);
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+//void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

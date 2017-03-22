@@ -36,7 +36,6 @@
 #include "stm32f0xx_it.h"
 
 /* USER CODE BEGIN 0 */
-#include "sw_fifo.h"
 
 /* USER CODE END 0 */
 
