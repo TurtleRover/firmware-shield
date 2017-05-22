@@ -47,6 +47,7 @@
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
+extern volatile uint16_t gripperValue;
 
 /* USER CODE BEGIN Private defines */
 #define RX_BUFFER_SIZE 7

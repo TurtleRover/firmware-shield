@@ -48,6 +48,13 @@ DMA_HandleTypeDef hdma_usart1_tx;
 
 uint8_t rxBuffer[RX_BUFFER_SIZE];
 uint8_t txBuffer[TX_BUFFER_SIZE];
+extern volatile uint16_t ADC_dma_var[5];
+
+struct manipulator {
+	uint16_t axis_1;
+	uint16_t axis_2;
+	uint16_t gripper;
+} mani;
 
 /* USART1 init function */
 
@@ -181,6 +188,22 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				setMotorX(2, rxBuffer[2] & 0x7F, (rxBuffer[2] & 0x80) >> 7);
 				setMotorX(3, rxBuffer[3] & 0x7F, (rxBuffer[3] & 0x80) >> 7);
 				setMotorX(4, rxBuffer[4] & 0x7F, (rxBuffer[4] & 0x80) >> 7);
+				break;
+			/*	read battery voltage */
+			case 0x30:
+				HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&ADC_dma_var[4], 1);
+				break;
+			/*	set manipulator orientation (only axis without gripper)	- 2 bytes MSB first*/
+			case 0x84:
+				mani.axis_1 = (rxBuffer[1] << 8) + rxBuffer[2];
+				mani.axis_2 = (rxBuffer[3] << 8) + rxBuffer[4];
+				setManipulator(mani.axis_1, mani.axis_2);
+				break;
+			/*	set gripper value	*/
+			case 0x94:
+				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
+				// setGripper(mani.gripper);
+				gripperValue = mani.gripper;
 				break;
 			default:
 				break;

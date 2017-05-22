@@ -49,7 +49,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-extern uint8_t rxBuffer[RX_BUFFER_SIZE];
+volatile uint16_t ADC_dma_var[5];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -96,7 +96,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  /*uint8_t txBuffer[14] = {'T', 'u', 'r', 't', 'l', 'e', ' ', 'r', 'e', 'a', 'd','y','\r','\n'};
+  HAL_UART_Transmit_DMA(&huart1, txBuffer, 14);*/
 
+  __enable_irq();
+  HAL_ADC_Start_DMA(&hadc, (uint32_t*) ADC_dma_var, 5);
+
+  /* default values for manipulator
+   * period is 48000, so 3600 / 48000 = 0,075 ~ 1,5 ms*/
+  TIM1->CCR3 = 3600;	/*	grippper	*/
+  TIM1->CCR2 = 3600;	/*	axis 2		*/
+  TIM1->CCR1 = 3600;	/*	axis 1		*/
 
   while (1)
   {

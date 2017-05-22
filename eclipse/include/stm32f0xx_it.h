@@ -35,6 +35,8 @@
 #ifndef __STM32F0xx_IT_H
 #define __STM32F0xx_IT_H
 
+#include "motors.h"
+
 #ifdef __cplusplus
  extern "C" {
 #endif 
@@ -55,10 +57,14 @@ void DMA1_Channel2_3_IRQHandler(void);
 void I2C2_IRQHandler(void);
 void SPI1_IRQHandler(void);
 void USART1_IRQHandler(void);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+void TIM1_BRK_UP_TRG_COM_IRQHandler(void);
 
 #ifdef __cplusplus
 }
 #endif
+
+extern volatile uint16_t gripperValue;
 
 #endif /* __STM32F0xx_IT_H */
 
