@@ -41,6 +41,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 #include "main.h"
+#include "motors.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -48,6 +49,8 @@
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
+
+extern volatile uint16_t gripperValue;
 
 /* USER CODE BEGIN Private defines */
 
@@ -59,6 +62,7 @@ void MX_TIM1_Init(void);
 void MX_TIM3_Init(void);
                     
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
                                 
 
 /* USER CODE BEGIN Prototypes */

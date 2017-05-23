@@ -202,7 +202,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			/*	set gripper value	*/
 			case 0x94:
 				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
-				// setGripper(mani.gripper);
+				//setGripper(mani.gripper);
 				gripperValue = mani.gripper;
 				break;
 			default:

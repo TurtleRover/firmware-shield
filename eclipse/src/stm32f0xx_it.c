@@ -203,13 +203,6 @@ void USART1_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if (htim->Instance == TIM1) {
-		TIM1->CCR3 = 4200;
-	}
-	//TIM1->CCR3 = 4800;
-}
 
 void TIM1_BRK_UP_TRG_COM_IRQHandler(void)
 {
