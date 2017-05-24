@@ -51,6 +51,7 @@ extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
 
 extern volatile uint16_t gripperValue;
+extern volatile manipulator mani;
 
 /* USER CODE BEGIN Private defines */
 

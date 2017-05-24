@@ -36,19 +36,30 @@ void setMotorX(uint8_t mot, uint8_t value, uint8_t direction) {
 }
 
 void setManipulator(uint16_t axis_1, uint16_t axis_2) {
-	if (axis_1 < MANI_AXIS_1_MIN) axis_1 = MANI_AXIS_1_MIN;
-	else if (axis_1 > MANI_AXIS_1_MAX) axis_1 = MANI_AXIS_1_MAX;
+	if (axis_1 < MANI_AXIS_1_MIN || axis_1 > MANI_AXIS_1_MAX) axis_1 = 3600;
 
-	if (axis_1 < MANI_AXIS_2_MIN) axis_2 = MANI_AXIS_2_MIN;
-	else if (axis_1 > MANI_AXIS_2_MAX) axis_2 = MANI_AXIS_2_MAX;
+	if (axis_2 < MANI_AXIS_2_MIN || axis_2 > MANI_AXIS_2_MAX) axis_2 = 3600;
 
-	TIM1->CCR1 = axis_1;
-	TIM1->CCR2 = axis_2;
+	uint16_t axis_1_old = TIM1->CCR1;
+	uint16_t axis_2_old = TIM1->CCR2;
+
+	if (axis_1 > axis_1_old) axis_1_old += 10;
+	else axis_1_old -= 10;
+
+	if (axis_2 > axis_2_old) axis_2_old += 10;
+	else axis_2_old -= 10;
+
+	TIM1->CCR1 = axis_1_old;
+	TIM1->CCR2 = axis_2_old;
 }
 
 void setGripper(uint16_t gripper) {
-	if (gripper < MANI_GRIPPER_MIN) gripper = MANI_GRIPPER_MIN;
-	else if (gripper > MANI_GRIPPER_MAX) gripper = MANI_GRIPPER_MAX;
+	if (gripper < MANI_GRIPPER_MIN || gripper > MANI_GRIPPER_MAX)
+		gripper = 3600;
 
-	TIM1->CCR3 = gripper;
+	uint16_t gripperOld = TIM1->CCR3;
+	if (gripper > gripperOld) gripperOld += 10;
+	else gripperOld -= 10;
+
+	TIM1->CCR3 = gripperOld;
 }

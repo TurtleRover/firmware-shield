@@ -41,6 +41,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 #include "main.h"
+#include "motors.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -48,6 +49,8 @@
 
 extern UART_HandleTypeDef huart1;
 extern volatile uint16_t gripperValue;
+
+volatile manipulator mani;
 
 /* USER CODE BEGIN Private defines */
 #define RX_BUFFER_SIZE 7
