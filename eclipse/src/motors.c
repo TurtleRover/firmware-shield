@@ -40,7 +40,7 @@ void setManipulator(uint16_t axis_1, uint16_t axis_2) {
 
 	if (axis_2 < MANI_AXIS_2_MIN || axis_2 > MANI_AXIS_2_MAX) axis_2 = 3600;
 
-	uint16_t axis_1_old = TIM1->CCR1;
+	uint16_t axis_1_old = TIM1->CCR3;
 	uint16_t axis_2_old = TIM1->CCR2;
 
 	if (axis_1 > axis_1_old) axis_1_old += 10;
@@ -49,17 +49,17 @@ void setManipulator(uint16_t axis_1, uint16_t axis_2) {
 	if (axis_2 > axis_2_old) axis_2_old += 10;
 	else axis_2_old -= 10;
 
-	TIM1->CCR1 = axis_1_old;
+	TIM1->CCR3 = axis_1_old;
 	TIM1->CCR2 = axis_2_old;
 }
 
 void setGripper(uint16_t gripper) {
 	if (gripper < MANI_GRIPPER_MIN || gripper > MANI_GRIPPER_MAX)
-		gripper = 3600;
+		gripper = 4000;
 
-	uint16_t gripperOld = TIM1->CCR3;
+	uint16_t gripperOld = TIM1->CCR1;
 	if (gripper > gripperOld) gripperOld += 10;
 	else gripperOld -= 10;
 
-	TIM1->CCR3 = gripperOld;
+	TIM1->CCR1 = gripperOld;
 }
