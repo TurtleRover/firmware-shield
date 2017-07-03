@@ -43,14 +43,22 @@ void setManipulator(uint16_t axis_1, uint16_t axis_2) {
 	uint16_t axis_1_old = TIM1->CCR3;
 	uint16_t axis_2_old = TIM1->CCR2;
 
-	if (axis_1 > axis_1_old) axis_1_old += 10;
-	else axis_1_old -= 10;
+	int16_t axis_1_diff = (axis_1 - axis_1_old) & 0x7fff;
+	int16_t axis_2_diff = (axis_2 - axis_2_old) & 0x7fff;
 
-	if (axis_2 > axis_2_old) axis_2_old += 10;
-	else axis_2_old -= 10;
+	if (axis_1_diff > MANI_DIFF) {
+		if (axis_1 > axis_1_old) axis_1_old += MANI_DIFF;
+		else axis_1_old -= MANI_DIFF;
+		TIM1->CCR3 = axis_1_old;
+	}
+	else TIM1->CCR3 = axis_1;
 
-	TIM1->CCR3 = axis_1_old;
-	TIM1->CCR2 = axis_2_old;
+	if (axis_2_diff > MANI_DIFF) {
+		if (axis_2 > axis_2_old) axis_2_old += MANI_DIFF;
+		else axis_2_old -= MANI_DIFF;
+		TIM1->CCR2 = axis_2_old;
+	}
+	else TIM1->CCR2 = axis_2;
 }
 
 void setGripper(uint16_t gripper) {
@@ -58,8 +66,15 @@ void setGripper(uint16_t gripper) {
 		gripper = 4000;
 
 	uint16_t gripperOld = TIM1->CCR1;
-	if (gripper > gripperOld) gripperOld += 10;
-	else gripperOld -= 10;
+	int16_t gripper_diff = (gripper - gripperOld) & 0x7fff;
 
-	TIM1->CCR1 = gripperOld;
+	if (gripper_diff > MANI_DIFF) {
+		if (gripper > gripperOld) gripperOld += GRIPPER_DIFF;
+		else gripperOld -= GRIPPER_DIFF;
+
+		TIM1->CCR1 = gripperOld;
+	}
+	else TIM1->CCR1 = gripper;
+
+
 }

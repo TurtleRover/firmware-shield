@@ -10,6 +10,8 @@
 #define MANI_AXIS_2_MAX	5000 //4200
 #define MANI_GRIPPER_MIN 1000
 #define MANI_GRIPPER_MAX 5000
+#define MANI_DIFF 5	//the lower number the slower manipulator
+#define GRIPPER_DIFF 10
 
 void setMotorX(uint8_t mot, uint8_t value, uint8_t direction);
 void setManipulator(uint16_t axis_1, uint16_t axis_2);
