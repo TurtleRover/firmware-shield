@@ -50,6 +50,8 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 volatile uint16_t ADC_dma_var[5];
+
+volatile uint16_t emergencyStop;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -69,6 +71,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+	emergencyStop = 0;
 
   /* USER CODE END 1 */
 
@@ -104,8 +107,8 @@ int main(void)
 
   /* default values for manipulator
    * period is 48000, so 3600 / 48000 = 0,075 ~ 1,5 ms*/
-  TIM1->CCR3 = 3600;	/*	axis 1		*/
-  TIM1->CCR2 = 3600;	/*	axis 2		*/
+  TIM1->CCR3 = 4900;	/*	axis 1		*/
+  TIM1->CCR2 = 3400;	/*	axis 2		*/
   TIM1->CCR1 = 4000;	/*	gripper		*/
 
   while (1)

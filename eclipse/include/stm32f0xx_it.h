@@ -35,6 +35,8 @@
 #ifndef __STM32F0xx_IT_H
 #define __STM32F0xx_IT_H
 
+#include "motors.h"
+
 #ifdef __cplusplus
  extern "C" {
 #endif 
@@ -56,6 +58,8 @@ void I2C2_IRQHandler(void);
 void SPI1_IRQHandler(void);
 void USART1_IRQHandler(void);
 void TIM1_BRK_UP_TRG_COM_IRQHandler(void);
+
+extern volatile uint16_t emergencyStop;
 
 #ifdef __cplusplus
 }

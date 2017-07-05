@@ -52,6 +52,8 @@ extern volatile uint16_t gripperValue;
 
 volatile manipulator mani;
 
+extern volatile uint16_t emergencyStop;
+
 /* USER CODE BEGIN Private defines */
 #define RX_BUFFER_SIZE 7
 #define TX_BUFFER_SIZE 7

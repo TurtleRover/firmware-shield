@@ -175,6 +175,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 	if (huart->Instance == USART1) {
 		/*	check further only if the last characters are fine	*/
 		if (rxBuffer[RX_BUFFER_SIZE-2] == 0x0D && rxBuffer[RX_BUFFER_SIZE-1] == 0x0A) {
+			emergencyStop = 0;
+
 			switch (rxBuffer[0]) {
 			/*	set motors speed	*/
 			case 0x10:
