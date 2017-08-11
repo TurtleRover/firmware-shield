@@ -42,6 +42,8 @@
 #include "stm32f0xx_hal.h"
 #include "main.h"
 #include "motors.h"
+#include "mani.h"
+#include <stdbool.h>
 
 /* USER CODE BEGIN Includes */
 
@@ -53,6 +55,8 @@ extern volatile uint16_t gripperValue;
 volatile manipulator mani;
 
 extern volatile uint16_t emergencyStop;
+
+extern volatile eManiDirection maniDirection;
 
 /* USER CODE BEGIN Private defines */
 #define RX_BUFFER_SIZE 7

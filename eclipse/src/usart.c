@@ -50,6 +50,8 @@ uint8_t rxBuffer[RX_BUFFER_SIZE];
 uint8_t txBuffer[TX_BUFFER_SIZE];
 extern volatile uint16_t ADC_dma_var[5];
 
+volatile bool maniUseDiff;
+
 /* USART1 init function */
 
 void MX_USART1_UART_Init(void)
@@ -193,11 +195,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			case 0x84:
 				mani.axis_1 = (rxBuffer[1] << 8) + rxBuffer[2];
 				mani.axis_2 = (rxBuffer[3] << 8) + rxBuffer[4];
+				maniUseDiff = true;
 				break;
 			/*	set gripper value	*/
 			case 0x94:
 				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
+				maniUseDiff = true;
 				break;
+			case 0xA0:
+
 			default:
 				break;
 			}
