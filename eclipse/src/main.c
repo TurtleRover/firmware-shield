@@ -71,7 +71,6 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	emergencyStop = 0;
 
   /* USER CODE END 1 */
 
