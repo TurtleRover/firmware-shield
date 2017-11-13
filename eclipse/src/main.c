@@ -108,7 +108,7 @@ int main(void)
   /* default values for manipulator
    * period is 48000, so 3600 / 48000 = 0,075 ~ 1,5 ms*/
   TIM1->CCR3 = 9600;	/*	axis 1		*/
-  TIM1->CCR2 = 4800;	/*	axis 2		*/
+  TIM1->CCR2 = 500;	/*	axis 2		*/
   TIM1->CCR1 = 3400;	/*	gripper		*/
 
   setMotorX(1, 127, 0);
