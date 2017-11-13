@@ -85,8 +85,8 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC_Init();
+  //MX_DMA_Init();
+  //MX_ADC_Init();
   MX_I2C2_Init();
   MX_SPI1_Init();
   MX_TIM1_Init();
@@ -107,9 +107,14 @@ int main(void)
 
   /* default values for manipulator
    * period is 48000, so 3600 / 48000 = 0,075 ~ 1,5 ms*/
-  TIM1->CCR3 = 4900;	/*	axis 1		*/
-  TIM1->CCR2 = 3400;	/*	axis 2		*/
-  TIM1->CCR1 = 4000;	/*	gripper		*/
+  TIM1->CCR3 = 9600;	/*	axis 1		*/
+  TIM1->CCR2 = 500;	/*	axis 2		*/
+  TIM1->CCR1 = 3400;	/*	gripper		*/
+
+  setMotorX(1, 127, 0);
+  setMotorX(2, 127, 0);
+  setMotorX(3, 127, 1);
+  setMotorX(4, 127, 1);
 
   while (1)
   {

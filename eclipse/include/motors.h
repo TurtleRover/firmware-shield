@@ -6,6 +6,8 @@
 #include "mani.h"
 #include <stdbool.h>
 
+#define bool _Bool
+
 #define	MANI_AXIS_1_MIN	500 //2800
 #define MANI_AXIS_1_MAX	6000 //3900
 #define MANI_AXIS_2_MIN	500 //3500
