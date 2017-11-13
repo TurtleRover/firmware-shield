@@ -5,3 +5,4 @@ Debug/*
 /.settings/
 perf.data
 
+/Debug/
