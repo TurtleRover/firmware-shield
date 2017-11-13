@@ -1,5 +1,7 @@
-/Debug/
+Debug/*
+!Debug/turtle.elf
 /Release/
 .directory
 /.settings/
 perf.data
+
