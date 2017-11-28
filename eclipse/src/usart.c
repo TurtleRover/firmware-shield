@@ -202,6 +202,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
 				maniUseDiff = true;
 				break;
+			/*	set camera position */
+			case 0xA4:
+				mani.axis_2 = (rxBuffer[1] << 8) + rxBuffer[2];
+				maniUseDiff = true;
+				break;
 			case 0xA0:
 
 			default:
