@@ -61,10 +61,10 @@
 #define EN3_UC_GPIO_Port GPIOB
 #define EN4_UC_Pin GPIO_PIN_1
 #define EN4_UC_GPIO_Port GPIOB
-#define IN21_UC_Pin GPIO_PIN_10
-#define IN21_UC_GPIO_Port GPIOB
-#define IN22_UC_Pin GPIO_PIN_11
-#define IN22_UC_GPIO_Port GPIOB
+#define IN21_UC_Pin GPIO_PIN_11
+#define IN21_UC_GPIO_Port GPIOA
+#define IN22_UC_Pin GPIO_PIN_12
+#define IN22_UC_GPIO_Port GPIOA
 #define IN31_UC_Pin GPIO_PIN_12
 #define IN31_UC_GPIO_Port GPIOB
 #define IN32_UC_Pin GPIO_PIN_13

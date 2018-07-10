@@ -122,7 +122,6 @@ void SysTick_Handler(void)
 		setMotorX(2, 0, 0);
 		setMotorX(3, 0, 0);
 		setMotorX(4, 0, 0);
-
 	}
 
   HAL_IncTick();
