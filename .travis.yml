@@ -8,6 +8,7 @@ addons:
         - gcc-arm-none-eabi
 script:
   - make release OUT=firmware-shield-${TRAVIS_TAG} VERSION=${TRAVIS_TAG}
+
 #deploy:
 #  skip_cleanup: true
 #  file_glob: true
