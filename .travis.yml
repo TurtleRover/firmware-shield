@@ -7,7 +7,7 @@ addons:
         - libnewlib-arm-none-eabi
         - gcc-arm-none-eabi
 script:
-  - make release OUT=firmware-shield-${TRAVIS_TAG} VERSION=${TRAVIS_TAG}
+  - make 
 
 #deploy:
 #  skip_cleanup: true
