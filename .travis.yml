@@ -1,11 +1,12 @@
 dist: trusty
-language: c
+language: cpp
 addons:
   addons:
     apt:
         packages:
         - libnewlib-arm-none-eabi
         - gcc-arm-none-eabi
+        - build-essential
 script:
   - make 
 
