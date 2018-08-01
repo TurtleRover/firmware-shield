@@ -6,7 +6,7 @@ This is software for microprocessor on electronics-shield
 
  * adding repository 
 ```
-$ [sudo] sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+$ [sudo] add-apt-repository ppa:team-gcc-arm-embedded/ppa
 ```
 
 ```
