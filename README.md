@@ -24,7 +24,9 @@ https://medium.com/turtle-rover-blog/wireless-programming-and-debugging-with-stm
 
 ## Compiling 
 
-  * run: make
+```
+  $ make
+```
 
 http://turtlerover.com
 
