@@ -1,0 +1,21 @@
+dist: trusty
+language: c
+addons:
+  addons:
+    apt:
+        packages:
+        - libnewlib-arm-none-eabi
+        - gcc-arm-none-eabi
+script:
+  - make release OUT=firmware-shield-${TRAVIS_TAG} VERSION=${TRAVIS_TAG}
+#deploy:
+#  skip_cleanup: true
+#  file_glob: true
+#  file: build/*.elf
+#  api_key: ${GITHUB_KEY}
+#  provider: releases
+#  overwrite: true
+#  on:
+#    tags: true
+#notifications:
+#  email: false
