@@ -1,12 +1,13 @@
 dist: trusty
 language: cpp
-addons:
-  addons:
-    apt:
-        packages:
-        - libnewlib-arm-none-eabi
-        - gcc-arm-none-eabi
-        - build-essential
+
+sudo: required
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install libnewlib-arm-none-eabi
+  - sudo apt-get install gcc-arm-none-eabi
+  - sudo apt-get install build-essential
 script:
   - make 
 
