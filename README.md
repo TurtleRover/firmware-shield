@@ -18,7 +18,7 @@ $ sudo apt-get update
 $ sudo apt-get install gcc-arm-embedded`
 ```
 
-## Compiling 
+## Compiling & building
 
 ```
   $ make
