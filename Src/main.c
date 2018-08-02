@@ -49,13 +49,18 @@
 
 /* USER CODE BEGIN Includes */
 
+#include "mani.h"
+#include "motors.h"
+#include "version.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+volatile uint16_t ADC_dma_var[5];
+volatile uint16_t emergencyStop;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -78,7 +83,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  emergencyStop = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -107,6 +112,15 @@ int main(void)
   MX_TIM3_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  __enable_irq();
+  HAL_ADC_Start_DMA(&hadc, (uint32_t*) ADC_dma_var, 5);
+
+  TIM1->CCR3 = 4600;	/*	axis 1		*/
+  TIM1->CCR2 = 3400;	/*	axis 2		*/
+  TIM1->CCR1 = 3000;	/*	gripper		*/
+
+
 
   /* USER CODE END 2 */
 

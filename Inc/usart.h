@@ -48,12 +48,23 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "motors.h"
+#include "mani.h"
+#include "motors.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
+
+#define RX_BUFFER_SIZE 7
+#define TX_BUFFER_SIZE 7
+
+extern volatile uint16_t gripperValue;
+volatile manipulator mani;
+extern volatile uint16_t emergencyStop;
+extern volatile eManiDirection maniDirection;
 
 /* USER CODE END Private defines */
 

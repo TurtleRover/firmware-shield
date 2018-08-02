@@ -46,6 +46,8 @@ Src/tim.c \
 Src/usart.c \
 Src/stm32f0xx_it.c \
 Src/stm32f0xx_hal_msp.c \
+Src/motors.c \
+Src/mani.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc_ex.c \
 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_i2c.c \

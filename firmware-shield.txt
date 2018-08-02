@@ -1,0 +1,100 @@
+Configuration	firmware-shield
+STM32CubeMX 	4.26.1
+Date	08/02/2018
+MCU	STM32F030C8Tx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+ADC	IN0	ADC_IN0	PA0
+ADC	IN1	ADC_IN1	PA1
+ADC	IN2	ADC_IN2	PA2
+ADC	IN3	ADC_IN3	PA3
+ADC	IN4	ADC_IN4	PA4
+I2C2	I2C	I2C2_SCL	PF6
+I2C2	I2C	I2C2_SDA	PF7
+RCC	Crystal/Ceramic Resonator	RCC_OSC_IN	PF0-OSC_IN
+RCC	Crystal/Ceramic Resonator	RCC_OSC_OUT	PF1-OSC_OUT
+SPI1	Full-Duplex Slave	SPI1_MISO	PB4
+SPI1	Full-Duplex Slave	SPI1_MOSI	PB5
+SPI1	Full-Duplex Slave	SPI1_SCK	PB3
+SPI1	Hardware NSS Input Signal	SPI1_NSS	PA15
+SYS	Serial_Wire	SYS_SWCLK	PA14
+SYS	Serial_Wire	SYS_SWDIO	PA13
+SYS	SysTick	SYS_VS_Systick	VP_SYS_VS_Systick
+TIM1	Internal Clock	TIM1_VS_ClockSourceINT	VP_TIM1_VS_ClockSourceINT
+TIM1	PWM Generation CH1	TIM1_CH1	PA8
+TIM1	PWM Generation CH2	TIM1_CH2	PA9
+TIM1	PWM Generation CH3	TIM1_CH3	PA10
+TIM3	Internal Clock	TIM3_VS_ClockSourceINT	VP_TIM3_VS_ClockSourceINT
+TIM3	PWM Generation CH1	TIM3_CH1	PA6
+TIM3	PWM Generation CH2	TIM3_CH2	PA7
+TIM3	PWM Generation CH3	TIM3_CH3	PB0
+TIM3	PWM Generation CH4	TIM3_CH4	PB1
+USART1	Asynchronous	USART1_RX	PB7
+USART1	Asynchronous	USART1_TX	PB6
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+5	PF0-OSC_IN	RCC_OSC_IN	
+6	PF1-OSC_OUT	RCC_OSC_OUT	
+10	PA0	ADC_IN0	SENSE1
+11	PA1	ADC_IN1	SENSE2
+12	PA2	ADC_IN2	SENSE3
+13	PA3	ADC_IN3	SENSE4
+14	PA4	ADC_IN4	BAT_MEAS
+15	PA5	GPIO_Output	LED
+16	PA6	TIM3_CH1	EN1_UC
+17	PA7	TIM3_CH2	EN2_UC
+18	PB0	TIM3_CH3	EN3_UC
+19	PB1	TIM3_CH4	EN4_UC
+25	PB12	GPIO_Output	IN31_UC
+26	PB13	GPIO_Output	IN32_UC
+27	PB14	GPIO_Output	IN41_UC
+28	PB15	GPIO_Output	IN42_UC
+29	PA8	TIM1_CH1	SERVO1_UC
+30	PA9	TIM1_CH2	SERVO2_UC
+31	PA10	TIM1_CH3	SERVO3_UC
+32	PA11	GPIO_Output	IN21_UC
+33	PA12	GPIO_Output	IN22_UC
+34	PA13	SYS_SWDIO	
+35	PF6	I2C2_SCL	
+36	PF7	I2C2_SDA	
+37	PA14	SYS_SWCLK	
+38	PA15	SPI1_NSS	
+39	PB3	SPI1_SCK	
+40	PB4	SPI1_MISO	
+41	PB5	SPI1_MOSI	
+42	PB6	USART1_TX	
+43	PB7	USART1_RX	
+45	PB8	GPIO_Output	IN11_UC
+46	PB9	GPIO_Output	IN12_UC
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : firmware-shield
+Project Folder : /home/frozen/firmware-shield
+Toolchain / IDE : Makefile
+Firmware Package Name and Version : STM32Cube FW_F0 V1.9.0
+
+
+Code Generation Settings : 
+STM32Cube Firmware Library Package : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : Yes
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : Balanced Size/Speed
+
+
+
+
+
+

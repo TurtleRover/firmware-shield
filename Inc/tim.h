@@ -48,13 +48,17 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "mani.h"
+#include "motors.h"
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN Private defines */
+
+extern volatile uint16_t gripperValue;
+extern volatile manipulator mani;
 
 /* USER CODE END Private defines */
 

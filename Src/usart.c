@@ -45,6 +45,11 @@
 
 /* USER CODE BEGIN 0 */
 
+uint8_t rxBuffer[RX_BUFFER_SIZE];
+uint8_t txBuffer[TX_BUFFER_SIZE];
+extern volatile uint16_t ADC_dma_var[5];
+volatile bool maniUseDiff;
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
@@ -168,6 +173,53 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if (huart->Instance == USART1) {
+		/*	check further only if the last characters are fine	*/
+		if (rxBuffer[RX_BUFFER_SIZE-2] == 0x0D && rxBuffer[RX_BUFFER_SIZE-1] == 0x0A) {
+			emergencyStop = 0;
+
+			switch (rxBuffer[0]) {
+			/*	set motors speed	*/
+			case 0x10:
+				setMotorX(1, rxBuffer[1] & 0x7F, (rxBuffer[1] & 0x80) >> 7);
+				setMotorX(2, rxBuffer[2] & 0x7F, (rxBuffer[2] & 0x80) >> 7);
+				setMotorX(3, rxBuffer[3] & 0x7F, (rxBuffer[3] & 0x80) >> 7);
+				setMotorX(4, rxBuffer[4] & 0x7F, (rxBuffer[4] & 0x80) >> 7);
+				break;
+			/*	read battery voltage */
+			case 0x30:
+				HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&ADC_dma_var[4], 1);
+				break;
+			/*	set manipulator orientation (only axis without gripper)	- 2 bytes MSB first*/
+			case 0x84:
+				mani.axis_1 = (rxBuffer[1] << 8) + rxBuffer[2];
+				mani.axis_2 = (rxBuffer[3] << 8) + rxBuffer[4];
+				maniUseDiff = true;
+				break;
+			/*	set gripper value	*/
+			case 0x94:
+				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
+				maniUseDiff = true;
+				break;
+			/*	set camera position */
+			case 0xA4:
+				mani.axis_2 = (rxBuffer[1] << 8) + rxBuffer[2];
+				maniUseDiff = true;
+				break;
+			case 0xA0:
+
+			default:
+				break;
+			}
+		}
+
+		__HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
+
+		HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE);
+	}
+}
 
 /* USER CODE END 1 */
 
