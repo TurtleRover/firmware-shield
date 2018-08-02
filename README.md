@@ -15,7 +15,7 @@ $ sudo apt-get update
  * installing toolchain
  
 ```
-$ sudo apt-get install gcc-arm-embedded`
+$ sudo apt-get install gcc-arm-embedded
 ```
 
 ## Compiling & building
