@@ -1,0 +1,42 @@
+{
+    "!!! WARNING !!!": "PLEASE DO NOT MODIFY THIS FILE! USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags",
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/frozen/firmware-shield/Inc",
+                "/home/frozen/firmware-shield/Drivers",
+                "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/CMSIS/Include",
+                "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/CMSIS/Device/ST/STM32F0xx/Include",
+                "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/STM32F0xx_HAL_Driver/Inc",
+                "/home/frozen/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": "${workspaceRoot}/.vscode/.browse.c_cpp.db",
+                "path": [
+                    "/home/frozen/firmware-shield/Inc",
+                    "/home/frozen/firmware-shield/Drivers",
+                    "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/CMSIS/Include",
+                    "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/CMSIS/Device/ST/STM32F0xx/Include",
+                    "/home/frozen/.platformio/packages/framework-stm32cube/f0/Drivers/STM32F0xx_HAL_Driver/Inc",
+                    "/home/frozen/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=30601",
+                "STM32F030x8",
+                "USE_HAL_DRIVER",
+                "F_CPU=48000000L",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/home/frozen/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
