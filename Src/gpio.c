@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : gpio.c
+  * Description        : This file provides code for the configuration
+  *                      of all used GPIO pins.
   ******************************************************************************
   ** This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -37,62 +37,68 @@
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
-
 /* Includes ------------------------------------------------------------------*/
+#include "gpio.h"
+/* USER CODE BEGIN 0 */
 
-/* USER CODE BEGIN Includes */
+/* USER CODE END 0 */
 
-/* USER CODE END Includes */
+/*----------------------------------------------------------------------------*/
+/* Configure GPIO                                                             */
+/*----------------------------------------------------------------------------*/
+/* USER CODE BEGIN 1 */
 
-/* Private define ------------------------------------------------------------*/
+/* USER CODE END 1 */
 
-#define PWM1_Pin GPIO_PIN_6
-#define PWM1_GPIO_Port GPIOA
-#define PWM2_Pin GPIO_PIN_7
-#define PWM2_GPIO_Port GPIOA
-#define PWM3_Pin GPIO_PIN_0
-#define PWM3_GPIO_Port GPIOB
-#define PWM4_Pin GPIO_PIN_1
-#define PWM4_GPIO_Port GPIOB
-#define DIR3_Pin GPIO_PIN_12
-#define DIR3_GPIO_Port GPIOB
-#define DIR4_Pin GPIO_PIN_14
-#define DIR4_GPIO_Port GPIOB
-#define SERVO1_Pin GPIO_PIN_8
-#define SERVO1_GPIO_Port GPIOA
-#define SERVO2_Pin GPIO_PIN_9
-#define SERVO2_GPIO_Port GPIOA
-#define SERVO3_Pin GPIO_PIN_10
-#define SERVO3_GPIO_Port GPIOA
-#define DIR2_Pin GPIO_PIN_11
-#define DIR2_GPIO_Port GPIOA
-#define DIR1_Pin GPIO_PIN_8
-#define DIR1_GPIO_Port GPIOB
+/** Configure pins as 
+        * Analog 
+        * Input 
+        * Output
+        * EVENT_OUT
+        * EXTI
+*/
+void MX_GPIO_Init(void)
+{
 
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
+  GPIO_InitTypeDef GPIO_InitStruct;
 
-/* USER CODE BEGIN Private defines */
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
 
-/* USER CODE END Private defines */
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, DIR3_Pin|DIR4_Pin|DIR1_Pin, GPIO_PIN_RESET);
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DIR2_GPIO_Port, DIR2_Pin, GPIO_PIN_RESET);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
-#ifdef __cplusplus
+  /*Configure GPIO pins : PBPin PBPin PBPin */
+  GPIO_InitStruct.Pin = DIR3_Pin|DIR4_Pin|DIR1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = DIR2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DIR2_GPIO_Port, &GPIO_InitStruct);
+
 }
-#endif
 
-#endif /* __MAIN_H__ */
+/* USER CODE BEGIN 2 */
+
+/* USER CODE END 2 */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
