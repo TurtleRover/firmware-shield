@@ -46,6 +46,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 #include "main.h"
+#include "motors.h"
+#include "manipulator.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -54,6 +56,11 @@
 extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN Private defines */
+extern volatile uint16_t gripperValue;
+extern volatile uint16_t emergencyStop;
+extern volatile eManiDirection maniDirection;
+#define RX_BUFFER_SIZE 7
+#define TX_BUFFER_SIZE 7
 
 /* USER CODE END Private defines */
 
@@ -62,7 +69,7 @@ extern void _Error_Handler(char *, int);
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

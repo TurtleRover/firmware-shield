@@ -298,7 +298,13 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if (htim->Instance == TIM1) {
+		setGripper(mani.gripper);
+		setManipulator(mani.axis_1, mani.axis_2);
+	}
+}
 /* USER CODE END 1 */
 
 /**

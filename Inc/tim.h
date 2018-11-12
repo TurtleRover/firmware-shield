@@ -48,7 +48,7 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "manipulator.h"
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim1;
