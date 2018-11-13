@@ -29,6 +29,7 @@
 | --- | --- | --- | --- |
 | `10` | ⬆️`00` `00` `00` `00` : `7f` `7f` `7f` `7f`<br>⬇️`80` `80` `80` `80` : `ff` `ff` `ff` `ff`| `0d0a` | Motors speed set simultaneously for all wheels. The first range is for moving forward, the second - backward, accordingly. Returns nothing |
 | `30` | `00` `00` `00` `00` | `0d0a` | Returns battery voltage. `data * 0.1 + 7.6` to get real battery voltage |
+| `41` | `slave_addres << 1` `data_1` `data_2` `data_3` | `0d0a` | Send data to I2C connector. Returns nothing |
 | `84` | `(axis_1 >> 8) & 0xff` `axis_1 & 0xff` `(axis_2 >> 8) & 0xFF` `axis_2 & 0xff` | `0d0a` | Set manipulator orientation (only axis without gripper)	- 2 bytes MSB first. Returns nothing |
 | `94` | `(gripperPosition >> 8) & 0xFF` `gripperPosition & 0xFF ` | `0d0a` | Set gripper value. Returms nothing |
 
