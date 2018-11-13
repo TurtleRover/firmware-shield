@@ -53,6 +53,7 @@ void SVC_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 void DMA1_Channel1_IRQHandler(void);
+void DMA1_Channel2_3_IRQHandler(void);
 void I2C2_IRQHandler(void);
 void SPI1_IRQHandler(void);
 void USART1_IRQHandler(void);

@@ -108,7 +108,8 @@ int main(void) {
 	MX_USART1_UART_Init();
 	/* USER CODE BEGIN 2 */
 	__enable_irq();
-	HAL_ADC_Start_DMA(&hadc, (uint32_t*) Battery_level, 1);
+	HAL_UART_Receive_IT(&huart1, rxBuffer, 7);
+	HAL_ADC_Start_DMA(&hadc, Battery_level, 1);
 	TIM1->CCR3 = 3300; /*	axis 1		*/
 	TIM1->CCR2 = 3300; /*	axis 2		*/
 	TIM1->CCR1 = 3300; /*	gripper		*/
@@ -117,7 +118,6 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
-
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

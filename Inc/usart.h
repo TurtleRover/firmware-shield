@@ -46,11 +46,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 #include "main.h"
-#include "motors.h"
-#include "manipulator.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "i2c.h"
+#include "motors.h"
+#include "manipulator.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
@@ -61,6 +61,9 @@ extern volatile uint16_t emergencyStop;
 extern volatile eManiDirection maniDirection;
 #define RX_BUFFER_SIZE 7
 #define TX_BUFFER_SIZE 7
+
+uint8_t rxBuffer[RX_BUFFER_SIZE];
+uint8_t txBuffer[TX_BUFFER_SIZE];
 
 /* USER CODE END Private defines */
 
