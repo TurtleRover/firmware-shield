@@ -173,11 +173,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 } 
 
 /* USER CODE BEGIN 1 */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	if (huart->Instance == USART1) {
 		/*	check further only if the last characters are fine	*/
-		if (rxBuffer[RX_BUFFER_SIZE-2] == 0x0D && rxBuffer[RX_BUFFER_SIZE-1] == 0x0A) {
+		if (rxBuffer[RX_BUFFER_SIZE - 2] == 0x0D
+				&& rxBuffer[RX_BUFFER_SIZE - 1] == 0x0A) {
 			emergencyStop = 0;
 
 			switch (rxBuffer[0]) {
@@ -188,39 +188,43 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				setMotorX(3, rxBuffer[3] & 0x7F, (rxBuffer[3] & 0x80) >> 7);
 				setMotorX(4, rxBuffer[4] & 0x7F, (rxBuffer[4] & 0x80) >> 7);
 				break;
-			/*	read battery voltage */
+				/*	read battery voltage */
 			case 0x30:
-				HAL_UART_Transmit_IT(&huart1, (uint8_t *)&Battery_level, 2);
+				HAL_ADC_Start(&hadc); // Rozpoczecie nowej konwersji
+				while (HAL_ADC_PollForConversion(&hadc, 10) != HAL_OK)
+					;
+				Battery_level = HAL_ADC_GetValue(&hadc); // Pobranie zmierzonej wartosci
+
+				HAL_UART_Transmit_IT(&huart1, (uint8_t *) &Battery_level, 2);
 				break;
 
 			case 0x41:
-				HAL_I2C_Master_Transmit_IT(&hi2c2,rxBuffer[1],&rxBuffer[2],3);
+				HAL_I2C_Master_Transmit_IT(&hi2c2, rxBuffer[1], &rxBuffer[2],
+						3);
 				break;
-			/*	set manipulator orientation (only axis without gripper)	- 2 bytes MSB first*/
+				/*	set manipulator orientation (only axis without gripper)	- 2 bytes MSB first*/
 			case 0x84:
 				mani.axis_1 = (rxBuffer[1] << 8) + rxBuffer[2];
 				mani.axis_2 = (rxBuffer[3] << 8) + rxBuffer[4];
 				maniUseDiff = true;
 				break;
-			/*	set gripper value	*/
+				/*	set gripper value	*/
 			case 0x94:
 				mani.gripper = (rxBuffer[1] << 8) + rxBuffer[2];
 				maniUseDiff = true;
 				break;
-			/*	set camera position */
+				/*	set camera position */
 			case 0xA4:
 				mani.axis_2 = (rxBuffer[1] << 8) + rxBuffer[2];
 				maniUseDiff = true;
 				break;
 
 			default:
-				HAL_UART_Transmit_IT(&huart1, "NAN",4);
+				HAL_UART_Transmit_IT(&huart1, "NAN", 4);
 				break;
 			}
-		}
-		else
-		{
-			HAL_UART_Transmit_IT(&huart1, "BAD",4);
+		} else {
+			HAL_UART_Transmit_IT(&huart1, "BAD", 4);
 		}
 
 		__HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun

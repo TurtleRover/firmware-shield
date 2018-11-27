@@ -19,7 +19,7 @@
 #define MANI_AXIS_2_MAX	6000 //4200
 #define MANI_GRIPPER_MIN 1000
 #define MANI_GRIPPER_MAX 5000
-#define MANI_DIFF 5	//the lower number the slower manipulator
+#define MANI_DIFF 15	//the lower number the slower manipulator
 #define GRIPPER_DIFF 10
 #define MANI_TIME_DIVIDER 5
 #define MANI_DIM 50
