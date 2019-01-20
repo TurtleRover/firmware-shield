@@ -45,9 +45,10 @@
 Notice: All messages from microcontroller ends with \r\n character
 
 ## Example frame
+| Prefix  | Data | Data | Data | Data | Postfix | Postfix |
 |:-------:|:-----------:|:-----------:|:-----------:|:-----------:|:-------:|:-------:|
 |   0x10  |     0x50    |     0x50    |     0x50    |     0x50    |   0x0d  |   0x0a  |
-| Prefix  | Motor speed | Motor speed | Motor speed | Motor speed | Postfix | Postfix |
+
 
 
 ## Install toolchain
