@@ -1,4 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
+ADC.IPParameters=SamplingTime
+ADC.SamplingTime=ADC_SAMPLETIME_239CYCLES_5
 Dma.Request0=USART1_RX
 Dma.Request1=USART1_TX
 Dma.RequestsNb=2

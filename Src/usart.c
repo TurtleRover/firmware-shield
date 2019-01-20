@@ -39,6 +39,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usart.h"
+
 #include "gpio.h"
 #include "dma.h"
 
@@ -175,7 +176,10 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 void response_OK()
 {
-	HAL_UART_Transmit_IT(&huart1, "OK   \r\n", 7);
+	char response[50];
+	uint16_t size = 0;
+	size =  sprintf(response, " OK \r\n");
+	HAL_UART_Transmit_IT(&huart1, response, size);
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
@@ -186,14 +190,28 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		if (rxBuffer[RX_BUFFER_SIZE - 2] == 0x0D
 				&& rxBuffer[RX_BUFFER_SIZE - 1] == 0x0A)
 		{
+			char response[50];
+			uint16_t size = 0;
 			emergencyStop = 0;
 
 			switch (rxBuffer[0])
 			{
-			/****************** Safety ******************/
-
-			/* watchdog controll <!!! WARNING, USE WITH CAUTION !!!> */
+			/****************** Info ******************/
+			/*	return name of robot	*/
+			case 0x00:
+				size = sprintf(response, "Turtle Rover\r\n");
+				HAL_UART_Transmit_IT(&huart1, response, size);
+				break;
+				/*	return version of firmware	*/
 			case 0x01:
+				size = sprintf(response, FIRMWARE_VERSION);
+				HAL_UART_Transmit_IT(&huart1, response, size);
+				break;
+
+				/****************** Safety ******************/
+
+				/* watchdog controll <!!! WARNING, USE WITH CAUTION !!!> */
+			case 0xFF:
 				if (rxBuffer[1] == 0x01)
 				{
 					watchdogFlag = 0x01; // enable watchdog (default)
@@ -224,29 +242,44 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 
 				/*	read battery voltage */
 			case 0x30:
-				HAL_ADC_Start(&hadc);
-				while (HAL_ADC_PollForConversion(&hadc, 10) != HAL_OK)
-					;
-				Battery_level = HAL_ADC_GetValue(&hadc);
-
-				HAL_UART_Transmit_IT(&huart1, (uint8_t *) &Battery_level, 2);
+				;
+//				HAL_ADC_Start(&hadc);
+//				while (HAL_ADC_PollForConversion(&hadc, 10) != HAL_OK)
+//					;
+//				Battery_level = HAL_ADC_GetValue(&hadc);
+				float batteryLevelInVolts;
+				batteryLevelInVolts = 36.3 / 4096.0 * Battery_level;
+				char batteryLevelInVoltsString[50];
+				size = sprintf(batteryLevelInVoltsString, "%f.2\r\n",
+						batteryLevelInVolts);
+				HAL_UART_Transmit_IT(&huart1, batteryLevelInVoltsString, size);
 				break;
 
 				/****************** Communication ******************/
 
 				/******** I2C ********/
 
-				/*	Write */
+				/*	Write data */
 			case 0x41:
 				HAL_I2C_Master_Transmit_IT(&hi2c2, rxBuffer[1], &rxBuffer[2],
 						3);
 				response_OK();
 				break;
-				/*	Read */
+				/* Read data */
 			case 0x42:
-				HAL_I2C_Mem_Read_IT(&hi2c2, rxBuffer[1], rxBuffer[2],
-						rxBuffer[3], txBuffer, rxBuffer[3]);
-				HAL_UART_Transmit_IT(&huart1, txBuffer, 8);
+				HAL_I2C_Master_Receive_IT(&hi2c2,rxBuffer[1],txBuffer,rxBuffer[2]);
+				response_OK();
+				HAL_UART_Transmit_IT(&huart1, txBuffer, rxBuffer[2]);
+				break;
+				/* Write register */
+			case 0x43:
+				HAL_I2C_Mem_Write_IT(&hi2c2,rxBuffer[1],rxBuffer[2],rxBuffer[3],&rxBuffer[4],rxBuffer[3]);
+				response_OK();
+				break;
+				/*	Read register */
+			case 0x44:
+				HAL_I2C_Mem_Read_IT(&hi2c2, rxBuffer[1], rxBuffer[2], rxBuffer[3], txBuffer, rxBuffer[3]);
+				HAL_UART_Transmit_IT(&huart1, txBuffer, rxBuffer[3]);
 				break;
 
 				/****************** Servos ******************/
@@ -291,8 +324,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				setGripper(mani.gripper);
 				response_OK();
 				break;
-
-				/*	set camera position */ // LEGACY
+				/****************** Legacy ******************/
+				/*	set camera position */
 			case 0xA4:
 				mani.axis_2 = (rxBuffer[1] << 8) + rxBuffer[2];
 				maniUseDiff = true;

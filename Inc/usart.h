@@ -52,6 +52,7 @@
 #include "motors.h"
 #include "manipulator.h"
 #include "adc.h"
+#include "version.h"
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart1;
