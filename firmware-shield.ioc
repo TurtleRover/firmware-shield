@@ -1,5 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
-ADC.IPParameters=SamplingTime
+ADC.EnableAnalogWatchDog=false
+ADC.IPParameters=SamplingTime,EnableAnalogWatchDog
 ADC.SamplingTime=ADC_SAMPLETIME_239CYCLES_5
 Dma.Request0=USART1_RX
 Dma.Request1=USART1_TX
@@ -84,6 +85,7 @@ NVIC.SVC_IRQn=true\:0\:0\:false\:false\:true\:false
 NVIC.SysTick_IRQn=true\:0\:0\:false\:false\:true\:false
 NVIC.TIM1_BRK_UP_TRG_COM_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.TIM1_CC_IRQn=true\:0\:0\:false\:false\:true\:true
+NVIC.TIM3_IRQn=true\:0\:0\:false\:false\:true\:true
 NVIC.USART1_IRQn=true\:0\:0\:false\:false\:true\:true
 PA10.GPIOParameters=GPIO_Label
 PA10.GPIO_Label=SERVO3
@@ -244,7 +246,7 @@ TIM3.Channel-PWM\ Generation3\ CH3=TIM_CHANNEL_3
 TIM3.Channel-PWM\ Generation4\ CH4=TIM_CHANNEL_4
 TIM3.IPParameters=Channel-PWM Generation1 CH1,Channel-PWM Generation2 CH2,Channel-PWM Generation3 CH3,Channel-PWM Generation4 CH4,Prescaler,Period,AutoReloadPreload
 TIM3.Period=127
-TIM3.Prescaler=19
+TIM3.Prescaler=18
 USART1.BaudRate=115200
 USART1.IPParameters=VirtualMode-Asynchronous,BaudRate
 USART1.VirtualMode-Asynchronous=VM_ASYNC

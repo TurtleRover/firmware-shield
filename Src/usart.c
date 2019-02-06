@@ -10,7 +10,7 @@
  * inserted by the user or by software development tools
  * are owned by their respective copyright owners.
  *
- * COPYRIGHT(c) 2018 STMicroelectronics
+ * COPYRIGHT(c) 2019 STMicroelectronics
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -178,7 +178,7 @@ void response_OK()
 {
 	char response[50];
 	uint16_t size = 0;
-	size =  sprintf(response, " OK \r\n");
+	size = sprintf(response, " OK \r\n");
 	HAL_UART_Transmit_IT(&huart1, response, size);
 }
 
@@ -208,25 +208,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				HAL_UART_Transmit_IT(&huart1, response, size);
 				break;
 
-				/****************** Safety ******************/
-
-				/* watchdog controll <!!! WARNING, USE WITH CAUTION !!!> */
-			case 0xFF:
-				if (rxBuffer[1] == 0x01)
-				{
-					watchdogFlag = 0x01; // enable watchdog (default)
-					response_OK();
-				}
-				else if (rxBuffer[1] == 0x00)
-				{
-					watchdogFlag = 0x00; // disable watchdog
-					response_OK();
-				}
-				else
-					// do nothing
-					;
-				break;
-
 				/****************** Driving ******************/
 
 				/*	set motors speed	*/
@@ -239,20 +220,30 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				break;
 
 				/****************** Internal sensors ******************/
-
-				/*	read battery voltage */
 			case 0x30:
+				HAL_ADC_Start(&hadc);
+				while (1)
+					if (HAL_ADC_PollForConversion(&hadc, 10) == HAL_OK)
+						break;
+				Battery_level = HAL_ADC_GetValue(&hadc);
+				HAL_UART_Transmit_IT(&huart1, (uint8_t *) &Battery_level,
+						sizeof(uint16_t));
+				break;
+				/*	read battery voltage, return in volts*/
+			case 0x31:
 				;
-//				HAL_ADC_Start(&hadc);
-//				while (HAL_ADC_PollForConversion(&hadc, 10) != HAL_OK)
-//					;
-//				Battery_level = HAL_ADC_GetValue(&hadc);
+				HAL_ADC_Start(&hadc);
+				while (1)
+					if (HAL_ADC_PollForConversion(&hadc, 10) == HAL_OK)
+						break;
+				Battery_level = HAL_ADC_GetValue(&hadc);
 				float batteryLevelInVolts;
 				batteryLevelInVolts = 36.3 / 4096.0 * Battery_level;
-				char batteryLevelInVoltsString[50];
-				size = sprintf(batteryLevelInVoltsString, "%f.2\r\n",
-						batteryLevelInVolts);
-				HAL_UART_Transmit_IT(&huart1, batteryLevelInVoltsString, size);
+//				char batteryLevelInVoltsString[50];
+//				size = sprintf(batteryLevelInVoltsString, "%f\r\n",
+//						batteryLevelInVolts);
+				HAL_UART_Transmit_IT(&huart1, &batteryLevelInVolts,
+						sizeof(float));
 				break;
 
 				/****************** Communication ******************/
@@ -267,18 +258,21 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				break;
 				/* Read data */
 			case 0x42:
-				HAL_I2C_Master_Receive_IT(&hi2c2,rxBuffer[1],txBuffer,rxBuffer[2]);
+				HAL_I2C_Master_Receive_IT(&hi2c2, rxBuffer[1], txBuffer,
+						rxBuffer[2]);
 				response_OK();
 				HAL_UART_Transmit_IT(&huart1, txBuffer, rxBuffer[2]);
 				break;
 				/* Write register */
 			case 0x43:
-				HAL_I2C_Mem_Write_IT(&hi2c2,rxBuffer[1],rxBuffer[2],rxBuffer[3],&rxBuffer[4],rxBuffer[3]);
+				HAL_I2C_Mem_Write_IT(&hi2c2, rxBuffer[1], rxBuffer[2],
+						rxBuffer[3], &rxBuffer[4], rxBuffer[3]);
 				response_OK();
 				break;
 				/*	Read register */
 			case 0x44:
-				HAL_I2C_Mem_Read_IT(&hi2c2, rxBuffer[1], rxBuffer[2], rxBuffer[3], txBuffer, rxBuffer[3]);
+				HAL_I2C_Mem_Read_IT(&hi2c2, rxBuffer[1], rxBuffer[2],
+						rxBuffer[3], txBuffer, rxBuffer[3]);
 				HAL_UART_Transmit_IT(&huart1, txBuffer, rxBuffer[3]);
 				break;
 
@@ -324,6 +318,26 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				setGripper(mani.gripper);
 				response_OK();
 				break;
+
+				/****************** Safety ******************/
+
+				/* watchdog controll <!!! WARNING, USE WITH CAUTION !!!> */
+			case 0xFF:
+				if (rxBuffer[1] == 0x01)
+				{
+					watchdogFlag = 0x01; // enable watchdog (default)
+					response_OK();
+				}
+				else if (rxBuffer[1] == 0x00)
+				{
+					watchdogFlag = 0x00; // disable watchdog
+					response_OK();
+				}
+				else
+					// do nothing
+					;
+				break;
+
 				/****************** Legacy ******************/
 				/*	set camera position */
 			case 0xA4:
@@ -331,13 +345,14 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				maniUseDiff = true;
 				response_OK();
 				break;
+
 			default:
 				break;
 			}
 		}
 		__HAL_UART_FLUSH_DRREGISTER(&huart1); // Clear the buffer to prevent overrun
 
-		HAL_UART_Receive_DMA(&huart1, rxBuffer, RX_BUFFER_SIZE);
+		HAL_UART_Receive_IT(&huart1, rxBuffer, 7);
 	}
 }
 /* USER CODE END 1 */

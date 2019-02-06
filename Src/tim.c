@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -130,7 +130,7 @@ void MX_TIM3_Init(void)
   TIM_OC_InitTypeDef sConfigOC;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 19;
+  htim3.Init.Prescaler = 18;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 127;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -213,6 +213,10 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
   /* USER CODE END TIM3_MspInit 0 */
     /* TIM3 clock enable */
     __HAL_RCC_TIM3_CLK_ENABLE();
+
+    /* TIM3 interrupt Init */
+    HAL_NVIC_SetPriority(TIM3_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(TIM3_IRQn);
   /* USER CODE BEGIN TIM3_MspInit 1 */
 
   /* USER CODE END TIM3_MspInit 1 */
@@ -301,6 +305,9 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
   /* USER CODE END TIM3_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_TIM3_CLK_DISABLE();
+
+    /* TIM3 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(TIM3_IRQn);
   /* USER CODE BEGIN TIM3_MspDeInit 1 */
 
   /* USER CODE END TIM3_MspDeInit 1 */
