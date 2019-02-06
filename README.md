@@ -30,7 +30,8 @@
 | `00` | `00` `00` `00` `00` | `0d0a` | Returns name of the robot |
 | `01` | `00` `00` `00` `00` | `0d0a` | Returns version of firmware |
 | `10` | ⬆️`00` `00` `00` `00` : `7f` `7f` `7f` `7f`<br>⬇️`80` `80` `80` `80` : `ff` `ff` `ff` `ff`| `0d0a` | Motors speed set simultaneously for all wheels. The first range is for moving forward, the second - backward, accordingly. |
-| `30` | `00` `00` `00` `00` | `0d0a` | Returns battery voltage in float with 2 decimal points |
+| `30` | `00` `00` `00` `00` | `0d0a` | *deprecated* Returns battery voltage, used in format for TCS |
+| `30` | `00` `00` `00` `00` | `0d0a` | Returns battery voltage in float, 4 bytes little endian |
 | `41` | `slave_addres << 1` `data_1` `data_2` `data_3` | `0d0a` | Send data to I2C connector. |
 | `42` | `slave_addres << 1` `size_of_data` `00` `00` | `0d0a` | Recieve data from I2C connector. |
 | `43` | `slave_addres << 1` `memory_addres` `size_of_memory` `data` | `0d0a` | Write to register. |
@@ -38,8 +39,8 @@
 | `81` | `(duty >> 8) & 0xff` `duty & 0xff` `00` `00` | `0d0a` | Set servo 1 duty |
 | `82` | `(duty >> 8) & 0xff` `duty & 0xff` `00` `00` | `0d0a` | Set servo 2 duty |
 | `83` | `(duty >> 8) & 0xff` `duty & 0xff` `00` `00` | `0d0a` | Set servo 3 duty (redundant with 94)|
-| `84` | `(axis_1 >> 8) & 0xff` `axis_1 & 0xff` `(axis_2 >> 8) & 0xFF` `axis_2 & 0xff` | `0d0a` | Set manipulator orientation (only axis without gripper)	- 2 bytes MSB first. |
-| `94` | `(gripperPosition >> 8) & 0xFF` `gripperPosition & 0xFF ` | `0d0a` | Set gripper value.|
+| `84` | `(axis_1 >> 8) & 0xff` `axis_1 & 0xff` `(axis_2 >> 8) & 0xFF` `axis_2 & 0xff` | `0d0a` | *deprecated* Set manipulator orientation (only axis without gripper)	- 2 bytes MSB first. |
+| `94` | `(gripperPosition >> 8) & 0xFF` `gripperPosition & 0xFF ` | `0d0a` | *deprecated* Set gripper value.|
 | `FF` | `01 or 00` `00` `00` `00` | `0d0a` | Enable / disable watchdog. 0x01 is default setting |
 
 Notice: All messages from microcontroller ends with \r\n character
