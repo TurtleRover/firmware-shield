@@ -244,6 +244,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //						batteryLevelInVolts);
 				HAL_UART_Transmit_IT(&huart1, &batteryLevelInVolts,
 						sizeof(float));
+				size = sprintf(response, "\r\n");
+				HAL_UART_Transmit_IT(&huart1, response, size);
 				break;
 
 				/****************** Communication ******************/
