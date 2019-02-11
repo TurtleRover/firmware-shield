@@ -50,6 +50,11 @@ Notice: All messages from microcontroller ends with \r\n character
 |:-------:|:-----------:|:-----------:|:-----------:|:-----------:|:-------:|:-------:|
 |   0x10  |     0x50    |     0x50    |     0x50    |     0x50    |   0x0d  |   0x0a  |
 
+## Servo duty range
+### Manipulator
+Duty can be set in range from 500 to 6000
+### Gripper
+Duty can be set in range from 1000 to 5000
 
 
 ## Install toolchain
