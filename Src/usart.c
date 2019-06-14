@@ -44,6 +44,8 @@
 #include "dma.h"
 
 /* USER CODE BEGIN 0 */
+#include <string.h>
+
 DMA_HandleTypeDef hdma_usart1_rx;
 DMA_HandleTypeDef hdma_usart1_tx;
 
@@ -176,9 +178,9 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 void response_OK()
 {
-	char response[50];
+	uint8_t response[50];
 	uint16_t size = 0;
-	size = sprintf(response, " OK \r\n");
+	size = sprintf((char*)response, " OK \r\n");
 	HAL_UART_Transmit_IT(&huart1, response, size);
 }
 
@@ -190,7 +192,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		if (rxBuffer[RX_BUFFER_SIZE - 2] == 0x0D
 				&& rxBuffer[RX_BUFFER_SIZE - 1] == 0x0A)
 		{
-			char response[50];
+			uint8_t response[50];
 			uint16_t size = 0;
 			emergencyStop = 0;
 
@@ -199,12 +201,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 			/****************** Info ******************/
 			/*	return name of robot	*/
 			case 0x00:
-				size = sprintf(response, "Turtle Rover\r\n");
+				size = sprintf((char*)response, "Turtle Rover\r\n");
 				HAL_UART_Transmit_IT(&huart1, response, size);
 				break;
 				/*	return version of firmware	*/
 			case 0x01:
-				size = sprintf(response, FIRMWARE_VERSION);
+				size = sprintf((char*)response, FIRMWARE_VERSION);
 				HAL_UART_Transmit_IT(&huart1, response, size);
 				break;
 
@@ -239,13 +241,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 				Battery_level = HAL_ADC_GetValue(&hadc);
 				float batteryLevelInVolts;
 				batteryLevelInVolts = 36.3 / 4096.0 * Battery_level;
-//				char batteryLevelInVoltsString[50];
-//				size = sprintf(batteryLevelInVoltsString, "%f\r\n",
-//						batteryLevelInVolts);
-				HAL_UART_Transmit_IT(&huart1, &batteryLevelInVolts,
-						sizeof(float));
-				size = sprintf(response, "\r\n");
-				HAL_UART_Transmit_IT(&huart1, response, size);
+				memcpy(response, &batteryLevelInVolts, sizeof(float));
+				size = sprintf((char*)(response + sizeof(float)), "\r\n");
+				HAL_UART_Transmit_IT(&huart1, response, sizeof(float) + size);
 				break;
 
 				/****************** Communication ******************/
